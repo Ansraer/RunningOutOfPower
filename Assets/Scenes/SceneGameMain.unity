@@ -407,6 +407,6 @@ MonoBehaviour:
   - gameObject: {fileID: 1750074912372882, guid: 28c51c47e9c85024fbde828e1a2005fa,
       type: 2}
     probability: 1
-  worldLength: 100
+  worldHeight: 100
   worldWidth: 150
   world: {fileID: 125764578}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WorldGenerator : MonoBehaviour {
 
     [System.Serializable]
@@ -15,10 +16,13 @@ public class WorldGenerator : MonoBehaviour {
     public GenObjects[] tiles;
     public GenObjects[] objects;
 
-    public int worldLength;
+    public int worldHeight;
     public int worldWidth;
 
     public GameObject world;
+
+    public float freeSpaceRadius = 8;
+
 
     private int[,] worldGroundTiles;
     private int[,] worldObjects;
@@ -33,14 +37,18 @@ public class WorldGenerator : MonoBehaviour {
 
         InstantiateGround();
         InstantiateObjects();
+
+        //make sure that 0 is at the center of the map
+        world.transform.position = new Vector3(-worldWidth / 2, -worldHeight / 2, 0);
+
     }
 
     void GenWorldGround()
     {
-        worldGroundTiles = new int[worldLength, worldWidth];
+        worldGroundTiles = new int[worldHeight, worldWidth];
 
         //fill it with dirt
-        for (int len = 0; len < worldLength; len++)
+        for (int len = 0; len < worldHeight; len++)
         {
             for (int wid = 0; wid < worldWidth; wid++)
             {
@@ -53,14 +61,29 @@ public class WorldGenerator : MonoBehaviour {
 
     void GenWorldObjects()
     {
-        worldObjects = new int[worldLength, worldWidth];
+        worldObjects = new int[worldHeight, worldWidth];
 
-        //fill it with dirt
-        for (int len = 0; len < worldLength; len++)
+        for (int len = 0; len < worldHeight; len++)
         {
             for (int wid = 0; wid < worldWidth; wid++)
             {
-                worldObjects[len, wid] = 0;
+
+                worldObjects[len, wid] = -1;
+
+                if (Random.Range(0f, 100f) < 25f)
+                {
+                    worldObjects[len, wid] = 0;
+                }
+
+
+
+                //clearing up center
+                float distance = Mathf.Sqrt(Mathf.Pow(len-worldHeight/2,2) + Mathf.Pow(wid-worldWidth/2,2));
+                if (distance < freeSpaceRadius)
+                {
+                    worldObjects[len, wid] = -1;
+                }
+
             }
         }
 
@@ -69,26 +92,28 @@ public class WorldGenerator : MonoBehaviour {
 
     void InstantiateGround()
     {
-        for (int len = 0; len < worldLength; len++)
+        for (int len = 0; len < worldHeight; len++)
         {
             for (int wid = 0; wid < worldWidth; wid++)
             {
-                    int objectIndex = worldGroundTiles[len, wid];
+                int objectIndex = worldGroundTiles[len, wid];
+                if (objectIndex != -1) {
                     GameObject tempTile = Instantiate(tiles[objectIndex].gameObject, new Vector3(wid, len, 0.5f), Quaternion.identity);
                     tempTile.transform.parent = world.transform;
+                }
             }
         }
     }
 
     void InstantiateObjects()
     {
-        for (int len = 0; len < worldLength; len++)
+        for (int len = 0; len < worldHeight; len++)
         {
             for (int wid = 0; wid < worldWidth; wid++)
             {
-                if (Random.Range(0f, 100f) < 25f)
+                if (worldObjects[len, wid] != -1)
                 {
-                    int objectIndex = worldGroundTiles[len, wid];
+                    int objectIndex = worldObjects[len, wid];
                     GameObject tempTile = Instantiate(objects[objectIndex].gameObject, new Vector3(wid, len, 0), Quaternion.identity);
                     tempTile.transform.parent = world.transform;
                 }
