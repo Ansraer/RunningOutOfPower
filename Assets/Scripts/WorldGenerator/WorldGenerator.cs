@@ -73,10 +73,9 @@ public class WorldGenerator : MonoBehaviour {
         {
             for (int wid = 0; wid < worldWidth; wid++)
             {
-                int objectIndex = worldGroundTiles[len, wid];
-                GameObject tempTile = Instantiate(tiles[objectIndex].gameObject, new Vector3(wid, len, 0.5f), Quaternion.identity);
-                tempTile.transform.parent = world.transform;
-
+                    int objectIndex = worldGroundTiles[len, wid];
+                    GameObject tempTile = Instantiate(tiles[objectIndex].gameObject, new Vector3(wid, len, 0.5f), Quaternion.identity);
+                    tempTile.transform.parent = world.transform;
             }
         }
     }
@@ -87,10 +86,12 @@ public class WorldGenerator : MonoBehaviour {
         {
             for (int wid = 0; wid < worldWidth; wid++)
             {
-                int objectIndex = worldGroundTiles[len, wid];
-                GameObject tempTile = Instantiate(objects[objectIndex].gameObject, new Vector3(wid, len, 0), Quaternion.identity);
-                tempTile.transform.parent = world.transform;
-
+                if (Random.Range(0f, 100f) < 25f)
+                {
+                    int objectIndex = worldGroundTiles[len, wid];
+                    GameObject tempTile = Instantiate(objects[objectIndex].gameObject, new Vector3(wid, len, 0), Quaternion.identity);
+                    tempTile.transform.parent = world.transform;
+                }
             }
         }
     }
