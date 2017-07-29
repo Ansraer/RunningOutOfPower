@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LivingEntity : MonoBehaviour
+public class EntityLiving : MonoBehaviour
 {
 
     public List<EntityEffect> activeEffects = new List<EntityEffect>();
 
     public float maxHealth = 100;
     public float health;
-
     public float healthRegenPerSecond = 0f;
+
+
+    public float defaultMovementSpeed = 4;
 
 
     [System.Serializable]
@@ -52,6 +54,13 @@ public class LivingEntity : MonoBehaviour
         {
             ef.update(this, Time.deltaTime);
         }
+    }
+
+
+    //account for effects here
+    public virtual float GetMovementSpeed()
+    {
+        return this.defaultMovementSpeed;
     }
 
     public virtual void Dead()

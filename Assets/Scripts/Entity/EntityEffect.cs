@@ -6,7 +6,7 @@ public class EntityEffect
     public int durationInSecond;
 
 
-    internal void update(LivingEntity livingEntity, float deltaTime)
+    internal void update(EntityLiving livingEntity, float deltaTime)
     {
     }
 }
