@@ -5,7 +5,7 @@ using UnityEngine;
 public class LivingEntity : MonoBehaviour
 {
 
-    public List<EntityEffect> activeEffects;
+    public List<EntityEffect> activeEffects = new List<EntityEffect>();
 
     public float maxHealth = 100;
     public float health;
