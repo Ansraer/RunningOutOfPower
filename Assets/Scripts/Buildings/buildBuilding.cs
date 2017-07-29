@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class buildBuilding : MonoBehaviour {
 
-    public GameObject buildingPre;
+    public GameObject buildingToPlace;
+
     public Color blockedColor;
     public Color canBuildColor;
 
@@ -39,7 +40,17 @@ public class buildBuilding : MonoBehaviour {
         {
             this.buildingSprite.color = this.blockedColor;
         }
-	}
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Instantiate(buildingToPlace, tempPos, Quaternion.identity);
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            
+            Destroy(this.gameObject);
+        }
+    }
 
 
     //called when something enters the trigger
