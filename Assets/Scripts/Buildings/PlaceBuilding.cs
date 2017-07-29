@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class buildBuilding : MonoBehaviour {
+public class PlaceBuilding : MonoBehaviour {
 
     public GameObject buildingToPlace;
 

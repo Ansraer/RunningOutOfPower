@@ -26,6 +26,7 @@ public class WorldGenerator : MonoBehaviour {
 
     public float freeSpaceRadius = 8;
 
+    public GameObject centerBuilding;
 
     private int[,] worldGroundTiles;
     private int[,] worldObjects;
@@ -43,6 +44,9 @@ public class WorldGenerator : MonoBehaviour {
 
         //make sure that 0 is at the center of the map
         world.transform.position = new Vector3(-worldWidth / 2, -worldHeight / 2, 0);
+
+        GameObject tempTile = Instantiate(centerBuilding, new Vector3(0, 0, 0), Quaternion.identity);
+        tempTile.transform.parent = world.transform;
 
         astar.data.gridGraph.SetDimensions(worldWidth, worldHeight,1);
         astar.Scan();

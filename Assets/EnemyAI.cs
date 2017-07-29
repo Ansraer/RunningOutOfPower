@@ -23,7 +23,6 @@ public class EnemyAI : MonoBehaviour
     //how far away something has to be for the enemy to move towards it
     public float minDetectionDistance = 1.2f;
 
-
     private GameObject target;
 
     private Rigidbody2D rb2d;
@@ -58,6 +57,10 @@ public class EnemyAI : MonoBehaviour
 
 
 
+
+
+
+
     #region ENEMY COROUTINES
 
 
@@ -77,19 +80,41 @@ public class EnemyAI : MonoBehaviour
         // EXECUTE IDLE STATE
         while (state == ENEMY_STATE.IDLE)
         {
+            this.rb2d.velocity = new Vector3();
             EntityPlayer[] players = UnityEngine.Object.FindObjectsOfType<EntityPlayer>();
 
 
 
             foreach(EntityPlayer p in players)
             {
-                if(Vector3.Distance(this.transform.position, p.transform.position) <= this.maxDetectionDistance && Vector3.Distance(this.transform.position, p.transform.position)>= this.minDetectionDistance)
+                if(Vector3.Distance(this.transform.position, p.transform.position) <= this.maxDetectionDistance)
                 {
-                    state = ENEMY_STATE.WALK;
-                    this.target = p.gameObject;
+                    if (Vector3.Distance(this.transform.position, p.transform.position) >= this.minDetectionDistance) {
+                        state = ENEMY_STATE.WALK;
+                        this.target = p.gameObject;
+                    } else
+                    {
+                        //attack
+                    }
+
+                    yield return null;
                     yield break;
 
                 }
+            }
+
+
+            BuildingHQ hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>();
+            if (hq == null)
+                Debug.Log("NULL");
+            if (Vector3.Distance(this.transform.position, hq.transform.position) > this.maxAttackDistance)
+            {
+                //state = ENEMY_STATE.WALK;
+                //this.target = hq.gameObject;
+            }
+            else
+            {
+                //attack building
             }
 
 
@@ -152,6 +177,8 @@ public class EnemyAI : MonoBehaviour
                 yield return null;
                 continue;
             }
+
+
             // Direction to the next waypoint
             Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
             dir *= speed;
