@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Pathfinding;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class WorldGenerator : MonoBehaviour {
         public GameObject gameObject;
         public int probability;
     }
+
+    public AstarPath astar;
 
     //the probability numbers in the whole array have to add up to 2048 for the gen to work correctly
     public GenObjects[] tiles;
@@ -40,6 +43,9 @@ public class WorldGenerator : MonoBehaviour {
 
         //make sure that 0 is at the center of the map
         world.transform.position = new Vector3(-worldWidth / 2, -worldHeight / 2, 0);
+
+        astar.data.gridGraph.SetDimensions(worldWidth, worldHeight,1);
+        astar.Scan();
 
     }
 
