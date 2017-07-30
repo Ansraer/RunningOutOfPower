@@ -4,15 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingHQ : Building {
-
-	// Use this for initialization
-	public override void Start () {
-		
-	}
+    
 	
 	// Update is called once per frame
 	public override void FixedUpdate () {
-		
+        base.FixedUpdate();	
 	}
 
     public override void ShowGUI()
@@ -26,5 +22,7 @@ public class BuildingHQ : Building {
 
 
         this.activated = !this.activated;
+
+
     }
 }

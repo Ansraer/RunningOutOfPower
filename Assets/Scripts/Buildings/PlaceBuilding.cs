@@ -56,7 +56,6 @@ public class PlaceBuilding : MonoBehaviour {
     //called when something enters the trigger
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Trigger enter");
         //if the object is not already in the list
         if (!triggerList.Contains(other))
         {
@@ -68,7 +67,6 @@ public class PlaceBuilding : MonoBehaviour {
     //called when something exits the trigger
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Trigger left");
         //if the object is in the list
         if (triggerList.Contains(other))
         {

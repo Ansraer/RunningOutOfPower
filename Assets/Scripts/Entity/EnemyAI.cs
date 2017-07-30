@@ -71,7 +71,6 @@ public class EnemyAI : MonoBehaviour
         {
             yield return StartCoroutine(state.ToString());
         }
-        Debug.Log("you shouldn't see this. ever.");
     }
 
 
@@ -142,7 +141,6 @@ public class EnemyAI : MonoBehaviour
         {
             //restart in case path hasn't been generated yet
             if (this.path == null) {
-                Debug.Log("path is null, state is "+this.state);
                 yield return null;
                 continue;
             }
@@ -154,10 +152,8 @@ public class EnemyAI : MonoBehaviour
                 // Start a new path to the targetPosition, call the the OnPathComplete function
                 // when the path has been calculated (which may take a few frames depending on the complexity)
                 seeker.StartPath(transform.position, this.target.transform.position, OnPathComplete);
-                Debug.Log("getting path");
             }
 
-            Debug.Log("Walking");
 
             //make sure that the waypoint actually exists
             if (currentWaypoint > path.vectorPath.Count)
@@ -167,7 +163,6 @@ public class EnemyAI : MonoBehaviour
                 rb2d.velocity = new Vector3(0,0,0);
 
 
-                Debug.Log("bigger than count");
                 yield return null;
                 yield break;
             }
@@ -179,7 +174,6 @@ public class EnemyAI : MonoBehaviour
                 rb2d.velocity = new Vector3(0,0,0);
 
 
-                Debug.Log("End Of Path Reached");
                 yield return null;
                 yield break;
             }
