@@ -5,7 +5,7 @@ using Pathfinding;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : EntityLiving
 {
 
 
@@ -23,6 +23,11 @@ public class EnemyAI : MonoBehaviour
 
     public float maxChaseDistance = 15;
 
+
+    public float attackRate = .3f;
+    private float lastAttack=-9999999;
+    public DamageResistance[] attackDamages;
+
     private GameObject target;
 
     private Rigidbody2D rb2d;
@@ -30,8 +35,6 @@ public class EnemyAI : MonoBehaviour
     private Path path;
 
 
-    // The AI's speed in meters per second
-    public float speed = 2;
     // The max distance from the AI to a waypoint for it to continue to the next waypoint
     public float nextWaypointDistance = 1;
     // The waypoint we are currently moving towards
@@ -42,17 +45,14 @@ public class EnemyAI : MonoBehaviour
 
     #region UNITY METHODS
 
-    public void Awake()
+    public override void Awake()
     {
+        base.Awake();
         state = ENEMY_STATE.IDLE;
-    }
-
-    public void Start()
-    {
         rb2d = GetComponent<Rigidbody2D>();
         StartCoroutine(EnemyFSM());
     }
-
+    
     #endregion
 
 
@@ -104,7 +104,7 @@ public class EnemyAI : MonoBehaviour
                     }
                 }
 
-
+                
                 GameObject hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>().gameObject;
                 if (hq != null)
                     this.target = hq;
@@ -181,7 +181,7 @@ public class EnemyAI : MonoBehaviour
 
             // Direction to the next waypoint
             Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
-            dir *= speed;
+            dir *= this.GetMovementSpeed();
             // Note that SimpleMove takes a velocity in meters/second, so we should not multiply by Time.deltaTime
             rb2d.velocity = dir;
 
@@ -216,9 +216,34 @@ public class EnemyAI : MonoBehaviour
         while (state == ENEMY_STATE.ATTACK)
         {
 
+            if(target == null || target.GetComponent<Entity>().health <= 0)
+            {
+                this.handleTarget();
+                yield return null;
+                yield break;
+            }
+
             //don't move when idle
             this.rb2d.velocity = new Vector3();
 
+            //look at target
+            Vector3 dir = target.transform.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            if (Time.time - lastAttack > attackRate)
+            {
+                lastAttack = Time.time + UnityEngine.Random.Range(0f, attackRate) + attackRate/2;
+                
+
+                if(target.GetComponent<Entity>() != null)
+                {
+                    foreach (DamageResistance a in this.attackDamages)
+                    {
+                        target.GetComponent<Entity>().TakeDamage(a.type, a.amount);
+                    }
+                }
+            }
             Debug.Log("ATTACKING");
 
 
@@ -248,7 +273,7 @@ public class EnemyAI : MonoBehaviour
     //changes state depending on target, dissmises unrealistic target
     private void handleTarget()
     {
-        if (this.target != null)
+        if (this.target != null && target.GetComponent<Entity>().health > 0)
         {
 
             //attack the enemy if he is close enough

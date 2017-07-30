@@ -42,8 +42,6 @@ public class GameManager : MonoBehaviour {
         {
             currentEnergy -= b.GetPowerConsumption();
         }
-
-        Debug.Log("current power is" + currentEnergy);
     }
 
     public void GameOver()

@@ -119,12 +119,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fae7926c3d2bc42b3f7d03f345d9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  health: 0
+  healthRegenPerSecond: 0
+  resistances: []
+  defaultMovementSpeed: 4
   state: 0
   maxAttackDistance: 5
   maxDetectionDistance: 7
   minDetectionDistance: 2
   maxChaseDistance: 15
-  speed: 2
+  attackRate: 0.3
+  attackDamages:
+  - type: 1
+    amount: 10
   nextWaypointDistance: 1
   repathRate: 0.5
 --- !u!114 &114731488504893030

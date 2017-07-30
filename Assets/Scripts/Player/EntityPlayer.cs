@@ -11,8 +11,8 @@ public class EntityPlayer : EntityLiving {
 
 
 	// Use this for initialization
-	public override void Start () {
-        base.Start();
+	public override void Awake () {
+        base.Awake();
 
         //Get and store a reference to the Rigidbody2D component so that we can access it.
         rb2d = GetComponent<Rigidbody2D>();

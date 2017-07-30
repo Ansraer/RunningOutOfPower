@@ -32,4 +32,10 @@ public class BuildingHQ : Building {
         this.forceField.SetActive(this.activated);
     }
 
+    public override void Dead()
+    {
+        base.Dead();
+        GameManager.instance.GameOver();
+    }
+
 }

@@ -4,10 +4,8 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Collider2D))]
-public abstract class Building : MonoBehaviour {
+public abstract class Building : Entity {
 
-    public float maxHealth=1000;
-    public float health;
     public bool activated;
 
     public float idlePowerUsage=2;
@@ -15,18 +13,14 @@ public abstract class Building : MonoBehaviour {
     public float bootupEnergy = 30;
 
 	// Use this for initialization
-	public virtual void Awake () {
+	public override void Awake () {
+        base.Awake();
         GameManager.buildings.Add(this);
 
         this.health = maxHealth;
         this.activated = false;
     }
 
-    // Update is called once per frame
-    public virtual void FixedUpdate () {
-        if (this.health <= 0)
-            this.Destroyed();
-	}
 
     public virtual float GetPowerConsumption()
     {
@@ -34,10 +28,6 @@ public abstract class Building : MonoBehaviour {
     }
 
 
-    public virtual void Destroyed()
-    {
-        Destroy(this);
-    }
 
     void OnMouseOver()
     {
