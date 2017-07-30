@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4178470321934880}
   - component: {fileID: 212103117997221110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DirtTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
