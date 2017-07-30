@@ -22,18 +22,17 @@ public abstract class Building : MonoBehaviour {
         this.activated = false;
     }
 
+    // Update is called once per frame
+    public virtual void FixedUpdate () {
+        if (this.health <= 0)
+            this.Destroyed();
+	}
 
     public virtual float GetPowerConsumption()
     {
         return this.activated ? this.activePowerUsage : this.idlePowerUsage;
     }
 
-
-    // Update is called once per frame
-    public virtual void FixedUpdate () {
-        if (this.health <= 0)
-            this.Destroyed();
-	}
 
     public virtual void Destroyed()
     {

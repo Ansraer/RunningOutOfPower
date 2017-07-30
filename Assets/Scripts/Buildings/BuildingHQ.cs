@@ -4,10 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingHQ : Building {
-    
-	
-	// Update is called once per frame
-	public override void FixedUpdate () {
+
+    public GameObject forceField;
+
+
+    public override void Awake()
+    {
+        base.Awake();
+
+        this.forceField.gameObject.SetActive(false);
+    }
+
+    // Update is called once per frame
+    public override void FixedUpdate () {
         base.FixedUpdate();	
 	}
 
@@ -16,5 +25,11 @@ public class BuildingHQ : Building {
         Debug.Log("showing gui");
     }
 
+    public override void SwitchState()
+    {
+        base.SwitchState();
+
+        this.forceField.SetActive(this.activated);
+    }
 
 }
