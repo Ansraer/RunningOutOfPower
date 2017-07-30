@@ -11,17 +11,12 @@ public class GameHUDManager : MonoBehaviour {
     public Text energy;
     public Text notification;
 
-    public Slider healthSlider;
-    public Slider energySlider;
-
     private EntityPlayer player;
 
 	// Use this for initialization
 	void Start () {
         energy.text = "Energy: 100";
-        energySlider.value = 1;
         health.text = "HP: 100";
-        healthSlider.value = 1;
         sendNotification("Hi");
 
 
@@ -36,10 +31,9 @@ public class GameHUDManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         baseEnergy.value = GameManager.instance.currentEnergy / GameManager.instance.maxEnergy;
-        float healthN = player.health/player.maxHealth;
-        healthSlider.value = healthN;
-        health.text = "HP: " + player.health.ToString();
-	}
+        float healthN = player.health/player.maxHealth * 100;
+        health.text = "HP: " + Mathf.Round(healthN);
+    }
 
     public void sendNotification(string text)
     {

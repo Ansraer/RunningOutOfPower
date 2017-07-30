@@ -18,7 +18,7 @@ public class PlaceBuilding : MonoBehaviour {
     bool isBlocked = false;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         Vector3 initPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         initPos.z = 0f;
         initPos.x = (float)Math.Floor(initPos.x);
@@ -73,5 +73,14 @@ public class PlaceBuilding : MonoBehaviour {
             //remove it from the list
             triggerList.Remove(other); 
         }
+    }
+
+    public void spawnCursor()
+    {
+        Vector3 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        tempPos.z = 0f;
+        tempPos.x = (float)Math.Round(tempPos.x);
+        tempPos.y = (float)Math.Round(tempPos.y);
+        Instantiate(this, tempPos, Quaternion.identity);
     }
 }
