@@ -6,14 +6,18 @@ using UnityEngine;
 public class EntityPlayer : EntityLiving {
 
     public bool isActive = true;
+    public bool isInteracting;
+
 
     private Rigidbody2D rb2d;
+
 
 
 	// Use this for initialization
 	public override void Awake () {
         base.Awake();
 
+        isInteracting = false;
         //Get and store a reference to the Rigidbody2D component so that we can access it.
         rb2d = GetComponent<Rigidbody2D>();
     }
@@ -28,12 +32,14 @@ public class EntityPlayer : EntityLiving {
         if (isActive)
         {
             this.LookAtMouse();
-            this.Move();
+            this.HandleInput();
         }
 	}
 
-    private void Move()
+    private void HandleInput()
     {
+        this.isInteracting = Input.GetButton("Interact");
+
         //Store the current horizontal input in the float moveHorizontal.
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
 

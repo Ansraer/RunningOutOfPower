@@ -244,8 +244,6 @@ public class EnemyAI : EntityLiving
                     }
                 }
             }
-            Debug.Log("ATTACKING");
-
 
 
 

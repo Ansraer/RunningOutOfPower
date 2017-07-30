@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,15 +10,18 @@ public class GameManager : MonoBehaviour {
     public static List<Building> buildings = new List<Building>();
 
     public float maxEnergy = 1000;
-    public float currentEnergy;
+    public float currentEnergy = 0;
 
-    public float test;
+
+    public float currentMetal;
 
 	// Use this for initialization
 	void Start () {
         Debug.Log("Starting Game");
         instance = this;
+
         currentEnergy = maxEnergy;
+
 
         //update power level every second
         InvokeRepeating("updatePower", 0, 1);
@@ -36,6 +40,11 @@ public class GameManager : MonoBehaviour {
 
 	}
 
+    internal void AddResources(ItemResources type, float amount)
+    {
+        currentMetal += amount;
+    }
+
     private void updatePower()
     {
         foreach (Building b in buildings)
@@ -47,5 +56,10 @@ public class GameManager : MonoBehaviour {
     public void GameOver()
     {
 
+    }
+
+    public enum ItemResources
+    {
+        METAL
     }
 }

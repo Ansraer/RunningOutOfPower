@@ -36,6 +36,8 @@ public class WorldGenerator : MonoBehaviour {
     void Start()
     {
         GenWorldGround();
+        GenWorldOre();
+
         GenWorldObjects();
 
 
@@ -63,6 +65,47 @@ public class WorldGenerator : MonoBehaviour {
             for (int wid = 0; wid < worldWidth; wid++)
             {
                 worldGroundTiles[len, wid] = 0;
+            }
+        }
+
+
+    }
+
+    void GenWorldOre()
+    {
+        worldGroundTiles = new int[worldHeight, worldWidth];
+
+        //fill it with dirt
+        for (int len = 0; len < worldHeight; len++)
+        {
+            for (int wid = 0; wid < worldWidth; wid++)
+            {
+                if (Random.Range(0f, 100f) < 3)
+
+
+
+
+
+                    for (int lenOffset = 0; lenOffset < 5; lenOffset++)
+                    {
+                        for (int widOffset = 0; widOffset < 5; widOffset++)
+                        {
+                            float lenOre = len + lenOffset - 2;
+                            float widOre = wid + widOffset - 2;
+
+                            if (lenOre >= 0 && lenOre < worldHeight)
+                            {
+                                if (widOre >= 0 && widOre < worldWidth)
+                                {
+                                    if (Random.Range(0f, 100f) < 80)
+                                        worldGroundTiles[len, wid] = 1;
+                                }
+                            }
+                        }
+                    }
+
+
+
             }
         }
 

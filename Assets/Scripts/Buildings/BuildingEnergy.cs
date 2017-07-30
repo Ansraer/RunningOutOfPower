@@ -13,7 +13,7 @@ public class BuildingEnergy : Building {
 
     public override void ShowGUI()
     {
-        Debug.Log("showing gui");
+        GameHUDManager.instance.ShowInfoBox(this.gameObject, "PowerPlant", "This is an example text.");
     }
 
 

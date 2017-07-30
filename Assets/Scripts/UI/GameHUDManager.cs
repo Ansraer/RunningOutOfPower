@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameHUDManager : MonoBehaviour {
 
+    public static GameHUDManager instance;
+
     public Slider baseEnergy;
 
     public Text health;
@@ -13,12 +15,19 @@ public class GameHUDManager : MonoBehaviour {
 
     private EntityPlayer player;
 
+
+    public GameObject infoBox;
+    public Text infoBoxTitle;
+    public Text infoBoxContent;
+    private GameObject buildingInfoBox;
+
 	// Use this for initialization
 	void Start () {
         energy.text = "Energy: 100";
         health.text = "HP: 100";
         sendNotification("Hi");
 
+        instance = this;
 
         player = Object.FindObjectOfType<EntityPlayer>();
     }
@@ -40,6 +49,26 @@ public class GameHUDManager : MonoBehaviour {
         notification.text = text;
         notification.CrossFadeAlpha(1, 2,false);
         notification.CrossFadeAlpha(0, 2, false);
+    }
+
+    public void ShowInfoBox(GameObject building, string title, string content)
+    {
+        this.buildingInfoBox = building;
+        infoBox.SetActive(true);
+        infoBoxTitle.text = title;
+        infoBoxContent.text = content;
+    }
+
+    public void ButtonInfoBoxClose()
+    {
+        infoBox.SetActive(false);
+        buildingInfoBox = null;
+    }
+
+    public void ButtonInfoBoxDestroy()
+    {
+        infoBox.SetActive(false);
+        Destroy(buildingInfoBox);
     }
     
 }
