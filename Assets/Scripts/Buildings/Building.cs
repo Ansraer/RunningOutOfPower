@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class Building : MonoBehaviour {
 
-    public float maxHealth;
+    public float maxHealth=1000;
     public float health;
     public bool activated;
 

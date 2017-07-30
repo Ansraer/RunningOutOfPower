@@ -1293,7 +1293,8 @@ MonoBehaviour:
   maxHealth: 100
   health: 0
   healthRegenPerSecond: 0
-  test: []
+  defaultMovementSpeed: 4
+  resistances: []
 --- !u!4 &1909058992
 Transform:
   m_ObjectHideFlags: 0

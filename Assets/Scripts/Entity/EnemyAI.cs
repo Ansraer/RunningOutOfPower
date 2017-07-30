@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyAI : MonoBehaviour
 {
 
 
     public ENEMY_STATE state;
 
-
+    //HQ building
     public GameObject defaultTarget;
 
 
@@ -80,6 +81,12 @@ public class EnemyAI : MonoBehaviour
         // EXECUTE IDLE STATE
         while (state == ENEMY_STATE.IDLE)
         {
+            //target, fallback is building hq
+
+            //depending on type of target, distance and  either attack it or walk towards it.
+
+
+
             this.rb2d.velocity = new Vector3();
             EntityPlayer[] players = UnityEngine.Object.FindObjectsOfType<EntityPlayer>();
 
@@ -210,7 +217,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (!p.error)
         {
-            path = p;
+            this.path = p;
             // Reset the waypoint counter so that we start to move towards the first point in the path
             currentWaypoint = 0;
         }
