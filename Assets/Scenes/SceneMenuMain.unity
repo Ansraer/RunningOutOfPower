@@ -1444,9 +1444,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9f9e79989a2cb974f903c64efc364692, type: 3}
-    m_FontSize: 16
-    m_FontStyle: 0
+    m_Font: {fileID: 12800000, guid: 57eac4fd2e3b36841953effdeee6592f, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 8
     m_MaxSize: 270
@@ -1456,7 +1456,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'WARNING: INSUFFICIENT POWER'
+  m_Text: 'WARNING : INSUFFICIENT POWER'
 --- !u!222 &2138529921
 CanvasRenderer:
   m_ObjectHideFlags: 0
