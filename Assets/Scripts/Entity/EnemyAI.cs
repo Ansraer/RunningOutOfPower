@@ -11,9 +11,6 @@ public class EnemyAI : MonoBehaviour
 
     public ENEMY_STATE state;
 
-    //HQ building
-    public GameObject defaultTarget;
-
 
     //how close the enemy has to be to attack
     public float maxAttackDistance = 5;
@@ -23,6 +20,8 @@ public class EnemyAI : MonoBehaviour
 
     //how far away something has to be for the enemy to move towards it
     public float minDetectionDistance = 1.2f;
+
+    public float maxChaseDistance = 15;
 
     private GameObject target;
 
@@ -72,6 +71,7 @@ public class EnemyAI : MonoBehaviour
         {
             yield return StartCoroutine(state.ToString());
         }
+        Debug.Log("you shouldn't see this. ever.");
     }
 
 
@@ -85,45 +85,37 @@ public class EnemyAI : MonoBehaviour
 
             //depending on type of target, distance and  either attack it or walk towards it.
 
-
-
+            //don't move when idle
             this.rb2d.velocity = new Vector3();
-            EntityPlayer[] players = UnityEngine.Object.FindObjectsOfType<EntityPlayer>();
 
 
-
-            foreach(EntityPlayer p in players)
+            //aqcuire tagert, default to 
+            if (this.target == null)
             {
-                if(Vector3.Distance(this.transform.position, p.transform.position) <= this.maxDetectionDistance)
+
+                EntityPlayer[] players = UnityEngine.Object.FindObjectsOfType<EntityPlayer>();
+                foreach (EntityPlayer p in players)
                 {
-                    if (Vector3.Distance(this.transform.position, p.transform.position) >= this.minDetectionDistance) {
-                        state = ENEMY_STATE.WALK;
-                        this.target = p.gameObject;
-                    } else
+                    if (Vector3.Distance(this.transform.position, p.transform.position) <= this.maxDetectionDistance)
                     {
-                        //attack
+
+                        this.target = p.gameObject;
+                        yield return null;
+                        yield break;
                     }
-
-                    yield return null;
-                    yield break;
-
                 }
-            }
 
 
-            BuildingHQ hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>();
-            if (hq == null)
-                Debug.Log("NULL");
-            if (Vector3.Distance(this.transform.position, hq.transform.position) > this.maxAttackDistance)
-            {
-                //state = ENEMY_STATE.WALK;
-                //this.target = hq.gameObject;
-            }
-            else
-            {
-                //attack building
+                GameObject hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>().gameObject;
+                if (hq != null)
+                    this.target = hq;
+
+
             }
 
+            //do something with target
+
+            this.handleTarget();
 
 
             yield return null;
@@ -148,7 +140,9 @@ public class EnemyAI : MonoBehaviour
         // EXECUTE IDLE STATE
         while (state == ENEMY_STATE.WALK)
         {
+            //restart in case path hasn't been generated yet
             if (this.path == null) {
+                Debug.Log("path is null, state is "+this.state);
                 yield return null;
                 continue;
             }
@@ -160,7 +154,10 @@ public class EnemyAI : MonoBehaviour
                 // Start a new path to the targetPosition, call the the OnPathComplete function
                 // when the path has been calculated (which may take a few frames depending on the complexity)
                 seeker.StartPath(transform.position, this.target.transform.position, OnPathComplete);
+                Debug.Log("getting path");
             }
+
+            Debug.Log("Walking");
 
             //make sure that the waypoint actually exists
             if (currentWaypoint > path.vectorPath.Count)
@@ -169,8 +166,10 @@ public class EnemyAI : MonoBehaviour
                 this.path = null;
                 rb2d.velocity = new Vector3(0,0,0);
 
+
+                Debug.Log("bigger than count");
                 yield return null;
-                continue;
+                yield break;
             }
 
             if (currentWaypoint == path.vectorPath.Count)
@@ -182,7 +181,7 @@ public class EnemyAI : MonoBehaviour
 
                 Debug.Log("End Of Path Reached");
                 yield return null;
-                continue;
+                yield break;
             }
 
 
@@ -205,6 +204,9 @@ public class EnemyAI : MonoBehaviour
             }
 
 
+            //update target
+            this.handleTarget();
+
             yield return null;
 
         }
@@ -212,6 +214,32 @@ public class EnemyAI : MonoBehaviour
         // EXIT THE WALKING STATE
 
     }
+
+
+    IEnumerator ATTACK()
+    {
+        // EXECUTE ATTACK STATE
+        while (state == ENEMY_STATE.ATTACK)
+        {
+
+            //don't move when idle
+            this.rb2d.velocity = new Vector3();
+
+            Debug.Log("ATTACKING");
+
+
+
+
+            //update target
+            this.handleTarget();
+
+            yield return null;
+        }
+        yield return null;
+    }
+
+    #endregion
+
 
     private void OnPathComplete(Path p)
     {
@@ -223,8 +251,45 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //changes state depending on target, dissmises unrealistic target
+    private void handleTarget()
+    {
+        if (this.target != null)
+        {
 
-    #endregion
+            //attack the enemy if he is close enough
+            if (Vector3.Distance(this.transform.position, this.target.transform.position) <= this.maxAttackDistance)
+            {
+                state = ENEMY_STATE.ATTACK;
+
+            }
+            else if (Vector3.Distance(this.transform.position, this.target.transform.position) > this.maxAttackDistance)
+            {
+
+                //only walk towards far away target if it is not a player
+                if (this.target.GetComponent<EntityPlayer>() != null && Vector3.Distance(this.transform.position, this.target.transform.position) > this.maxChaseDistance)
+                {
+                    this.target = null;
+                    this.path = null;
+                    this.state = ENEMY_STATE.IDLE;
+                }
+                else
+                {
+                    this.state = ENEMY_STATE.WALK;
+                }
+
+            }
+            else
+            {
+                this.state = ENEMY_STATE.WALK;
+            }
+
+        } else
+        {
+            this.path = null;
+            this.state = ENEMY_STATE.IDLE;
+        }
+    }
 
 }
 
