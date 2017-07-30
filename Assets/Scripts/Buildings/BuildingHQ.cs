@@ -16,13 +16,5 @@ public class BuildingHQ : Building {
         Debug.Log("showing gui");
     }
 
-    public override void SwitchState()
-    {
-        Debug.Log("activating");
 
-
-        this.activated = !this.activated;
-
-
-    }
 }

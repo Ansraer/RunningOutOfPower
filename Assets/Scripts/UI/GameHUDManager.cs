@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameHUDManager : MonoBehaviour {
 
+    public Slider baseEnergy;
+
     public Text health;
     public Text energy;
     public Text notification;
@@ -33,6 +35,7 @@ public class GameHUDManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        baseEnergy.value = GameManager.instance.currentEnergy / GameManager.instance.maxEnergy;
         float healthN = player.health/player.maxHealth;
         healthSlider.value = healthN;
         health.text = "HP: " + player.health.ToString();

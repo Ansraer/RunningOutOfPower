@@ -45,11 +45,16 @@ public abstract class Building : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             this.ShowGUI();
         } else if(Input.GetMouseButtonDown(1)) {
-            GameManager.instance.currentEnergy -= this.bootupEnergy;
             this.SwitchState();
         }
     }
 
     public abstract void ShowGUI();
-    public abstract void SwitchState();
+
+    public virtual void SwitchState()
+    {
+        this.activated = !this.activated;
+        if(this.activated)
+            GameManager.instance.currentEnergy -= this.bootupEnergy;
+    }
 }
