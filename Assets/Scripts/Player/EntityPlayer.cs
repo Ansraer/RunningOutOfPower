@@ -22,7 +22,7 @@ public class EntityPlayer : EntityLiving {
 	public override void Awake () {
         base.Awake();
 
-        GunControler g = Instantiate(defaultGunPrefab, this.transform.position+defaultGunPrefab.transform.position, this.transform.rotation);
+        GunControler g = Instantiate(defaultGunPrefab, this.transform.position+ this.transform.rotation*defaultGunPrefab.transform.position, this.transform.rotation);
         g.gameObject.transform.parent = this.gameObject.transform;
         this.gun = g;
 
