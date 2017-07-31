@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public float currentMetal;
 
     public static List<Building> buildings = new List<Building>();
+    internal static int totalScore = 10;
 
 
     // Use this for initialization
