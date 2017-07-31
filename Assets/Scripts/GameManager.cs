@@ -16,6 +16,22 @@ public class GameManager : MonoBehaviour {
     public float forceFieldRadius = 9;
     public bool forceFieldActive = false;
 
+    public float minWaveBreakTime = 20f;
+    public float maxWaveBreakTime = 45f;
+
+    [System.Serializable]
+    public struct SpawnChances
+    {
+        public GameObject entity;
+        public float chance;
+    }
+
+
+    public Transform[] spawnPoints;
+    public SpawnChances[] enemies;
+
+    public int currentWave = 0;
+
 
     public float maxEnergy = 1000;
     public float currentEnergy = 0;
@@ -39,7 +55,7 @@ public class GameManager : MonoBehaviour {
         //update power level every second
         InvokeRepeating("updateBuildingEffects", 0, 1);
 
-        //generate Map here
+        StartCoroutine("EnemyWaveManager");
     }
 	
 	// Update is called once per frame
@@ -52,6 +68,53 @@ public class GameManager : MonoBehaviour {
 
 
 	}
+
+
+
+    //starts a new Coroutine once the old one ends
+    IEnumerator EnemyWaveManager()
+    {
+
+        if (spawnPoints.Count() < 1)
+        {
+            Debug.LogError("Warning, there are not enough spawn points. Please add more transforms to the array.");
+            yield return null;
+            yield break;
+        }
+
+        while (true)
+        {
+            currentWave++;
+
+
+            //TODO change Wave size depending on currentWave
+            int waveSize = 10;
+
+
+            for (int i = 0; i < waveSize; i++)
+            {
+
+                GameHUDManager.instance.sendNotification("WARNING : ENEMIES INCOMING");
+                int spawnPointIndex = UnityEngine.Random.Range(0, spawnPoints.Count());
+
+
+
+                //TODO: change enemy index to respect enemy weight 
+                int enemyIndex = 0;
+
+
+
+
+                Instantiate(enemies[enemyIndex].entity, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0.2f, 0.5f));
+            }
+            yield return new WaitForSeconds(UnityEngine.Random.Range(minWaveBreakTime, maxWaveBreakTime));
+        }
+    }
+
+
+
+
 
     internal void AddResources(ItemResources type, float amount)
     {
