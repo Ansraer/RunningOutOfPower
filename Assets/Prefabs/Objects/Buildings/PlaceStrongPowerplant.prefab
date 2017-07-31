@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114550602153526244}
   - component: {fileID: 50884463998862594}
   m_Layer: 9
-  m_Name: PlacePowerplant
+  m_Name: PlaceStrongPowerplant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,5 +144,5 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0

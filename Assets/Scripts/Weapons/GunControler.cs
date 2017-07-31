@@ -9,6 +9,8 @@ public class GunControler : MonoBehaviour {
     public float energyConsumptionPerShot = 10;
     public ProjectileController projectile;
 
+    public AudioClip fireSound;
+
     public EntityPlayer player;
 
     public float fireRate = 20;
@@ -30,7 +32,8 @@ public class GunControler : MonoBehaviour {
         if (Time.time - lastFired > fireRate && player.energy > this.energyConsumptionPerShot)
         {
             lastFired = Time.time;
-
+            if (this.fireSound != null)
+                player.GetComponent<AudioSource>().PlayOneShot(this.fireSound, .5f);
 
             player.energy -= this.energyConsumptionPerShot;
 
