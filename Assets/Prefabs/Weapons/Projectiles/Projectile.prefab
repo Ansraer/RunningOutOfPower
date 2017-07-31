@@ -90,7 +90,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 600
-  damage: 10
+  damages:
+  - type: 1
+    amount: 10
+  piercing: 0
+  damagePlayer: 0
+  damageBuilding: 0
 --- !u!212 &212098956629784448
 SpriteRenderer:
   m_ObjectHideFlags: 1

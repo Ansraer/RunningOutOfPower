@@ -4,28 +4,39 @@ using UnityEngine;
 
 public class GunControler : MonoBehaviour {
 
-    public EntityPlayer player;
-
+    
     public GameObject muzzle;
-
+    public float energyConsumptionPerShot = 10;
     public ProjectileController projectile;
 
+    public EntityPlayer player;
 
-	// Use this for initialization
-	void Start () {
+    public float fireRate = 20;
+    private float lastFired=-9999;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		
 	}
 
     public void Fire()
     {
-        ProjectileController p = Instantiate(projectile, this.muzzle.transform.position, this.transform.rotation);
 
-        p.GetComponent<Rigidbody2D>().AddForce(this.transform.rotation * (Vector2.up * p.projectileSpeed));
+        if (Time.time - lastFired > fireRate && player.energy > this.energyConsumptionPerShot)
+        {
+            lastFired = Time.time;
+
+
+            player.energy -= this.energyConsumptionPerShot;
+
+            ProjectileController p = Instantiate(projectile, this.muzzle.transform.position, this.transform.rotation);
+            p.GetComponent<Rigidbody2D>().AddForce(this.transform.rotation * (Vector2.up * p.projectileSpeed));
+        }
     }
 
 }

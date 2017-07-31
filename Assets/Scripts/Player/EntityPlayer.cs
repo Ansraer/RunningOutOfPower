@@ -10,21 +10,23 @@ public class EntityPlayer : EntityLiving {
 
     public GameObject muzzle;
 
-    public GunControler defaultGunPrefab;
-
     public GunControler gun;
 
     private Rigidbody2D rb2d;
 
+    public float energy;
 
+    public static float maxEnergy = 1000;
+
+    private int currentWeapon;
 
 	// Use this for initialization
 	public override void Awake () {
         base.Awake();
 
-        GunControler g = Instantiate(defaultGunPrefab, this.transform.position+ this.transform.rotation*defaultGunPrefab.transform.position, this.transform.rotation);
-        g.gameObject.transform.parent = this.gameObject.transform;
-        this.gun = g;
+        this.energy = maxEnergy;
+
+        this.SwitchWeapon(0);
 
         isInteracting = false;
         //Get and store a reference to the Rigidbody2D component so that we can access it.
@@ -51,11 +53,21 @@ public class EntityPlayer : EntityLiving {
         this.isInteracting = Input.GetButton("Interact");
 
         //fire
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
             this.Shoot();
         }
 
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            if(Input.GetAxis("Mouse ScrollWheel") > 0)
+            {
+                SwitchWeapon(1);
+            } else
+            {
+                SwitchWeapon(-1);
+            }
+        }
 
 
 
@@ -80,9 +92,38 @@ public class EntityPlayer : EntityLiving {
     {
 
         //this.projectile.Spawn(this.muzzle.transform);
-
         this.gun.Fire();
 
+    }
+
+    public void SwitchWeapon(int i)
+    {
+        int newWeapon = this.currentWeapon + i;
+
+
+        if (newWeapon > GameManager.unlockedWeapons.Length -1)
+        {
+            newWeapon = GameManager.unlockedWeapons.Length - 1;
+        }
+        if (newWeapon < 0)
+        {
+            newWeapon = 0;
+
+        }
+
+        if ((newWeapon != currentWeapon || this.gun==null) && GameManager.unlockedWeapons.Length>0)
+        {
+
+            if(this.gun!=null)
+                Destroy(this.gun.gameObject);
+
+            GunControler g = Instantiate(GameManager.unlockedWeapons[newWeapon], this.transform.position + this.transform.rotation * GameManager.unlockedWeapons[newWeapon].transform.position, this.transform.rotation);
+            g.gameObject.transform.parent = this.gameObject.transform;
+            g.player = this;
+            this.gun = g;
+
+            this.currentWeapon = newWeapon;
+        }
     }
 
     private void LookAtMouse()
