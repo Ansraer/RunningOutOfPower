@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GunControler : MonoBehaviour {
 
@@ -28,6 +29,41 @@ public class GunControler : MonoBehaviour {
 
     public void Fire()
     {
+
+        //don't fire when a building id beeing placed
+        if (UnityEngine.Object.FindObjectOfType<PlaceBuilding>() != null)
+            return;
+
+        /*
+        //don't fire when the ui is beeing interacted with
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            if(EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.name != "Notification")
+                return;
+        }
+        */
+
+        PointerEventData pointer = new PointerEventData(EventSystem.current);
+        pointer.position = Input.mousePosition;
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointer, raycastResults);
+
+        if (raycastResults.Count > 0)
+        {
+            foreach (var go in raycastResults)
+            {
+                if (go.gameObject.name != "Notification")
+                    return;
+            }
+        }
+
+
+
+        //dont do something when the player is clicking an builkding
+        Collider2D col= Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f);
+        if (col != null && col.gameObject.GetComponent<Building>() != null)
+            return;
 
         if (Time.time - lastFired > fireRate && player.energy > this.energyConsumptionPerShot)
         {
