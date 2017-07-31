@@ -16,6 +16,8 @@ public class GameHUDManager : MonoBehaviour {
 
     private EntityPlayer player;
 
+    public BuildingMenuItem buildingElement;
+
     public GameObject infoBox;
     public Text infoBoxTitle;
     public Text infoBoxContent;
@@ -30,13 +32,17 @@ public class GameHUDManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        instance = this;
+
+
         energy.text = "Energy: 100";
         health.text = "HP: 100";
         sendNotification("Hi");
 
-        instance = this;
 
         player = Object.FindObjectOfType<EntityPlayer>();
+
+ 
     }
 
     private void Awake()

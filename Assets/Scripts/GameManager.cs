@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour {
     public float forceFieldRadius = 9;
     public bool forceFieldActive = false;
 
+
+
+
     public float minWaveBreakTime = 20f;
     public float maxWaveBreakTime = 45f;
 
