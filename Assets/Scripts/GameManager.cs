@@ -62,12 +62,7 @@ public class GameManager : MonoBehaviour {
 	void FixedUpdate () {
         if (currentEnergy <= 0)
             GameOver();
-
-
-
-
-
-	}
+     }
 
 
 
