@@ -15,11 +15,13 @@ public class GameHUDManager : MonoBehaviour {
 
     private EntityPlayer player;
 
-
     public GameObject infoBox;
     public Text infoBoxTitle;
     public Text infoBoxContent;
     private GameObject buildingInfoBox;
+
+    public GameObject buildMenu;
+    private bool showBuildMenu = false;
 
 	// Use this for initialization
 	void Start () {
@@ -69,6 +71,12 @@ public class GameHUDManager : MonoBehaviour {
     {
         infoBox.SetActive(false);
         Destroy(buildingInfoBox);
+    }
+
+    public void toggleBuildMenu()
+    {
+        showBuildMenu = !showBuildMenu;
+        buildMenu.SetActive(showBuildMenu);
     }
     
 }

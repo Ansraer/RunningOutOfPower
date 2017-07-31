@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6641177f05c1d0d48ac362ef7c4718f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingToPlace: {fileID: 1137524561497758, guid: 314caa0d0e353664cb8820a6a38b7634,
+  buildingToPlace: {fileID: 1137524561497758, guid: edc1b2403de793345b09d4461c792fc2,
     type: 2}
   blockedColor: {r: 1, g: 0, b: 0, a: 0.741}
   canBuildColor: {r: 0.19999993, g: 1, b: 0, a: 0.703}

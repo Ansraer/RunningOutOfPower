@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61654767717804492}
   - component: {fileID: 114852963631439146}
   m_Layer: 0
-  m_Name: Powerplant
+  m_Name: Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
   healthRegenPerSecond: 0
   resistances: []
   activated: 0
-  idlePowerUsage: -1
+  idlePowerUsage: 0
   activePowerUsage: -1
   bootupEnergy: 0
 --- !u!212 &212330817498914594
@@ -118,7 +118,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ad4103c295c374f43b15a7f51e63be15, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bda46df8f5b191a4eb25be0d94f8438d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
