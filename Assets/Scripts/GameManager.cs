@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
     public float currentMetal;
 
     public static List<Building> buildings = new List<Building>();
-    internal static int totalScore = 10;
+    internal static int totalScore = 0;
 
 
     // Use this for initialization
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
         currentEnergy = maxEnergy;
 
+        totalScore = 10;
 
 
         //update power level every second
@@ -96,6 +97,23 @@ public class GameManager : MonoBehaviour {
                 p.SwitchWeapon(0);
             }
         }
+    }
+
+
+    /** tries to spend resources to build something
+     *  returns true if the resources are available and have been spen 
+     *  returns false if there aren't enough resources
+     */
+    public bool SpendResources(float energy, float metal)
+    {
+        if(this.currentEnergy >= energy && this.currentMetal>= metal)
+        {
+            this.currentEnergy -= energy;
+            this.currentMetal -= metal;
+            return true;
+        }
+
+        return false;
     }
 
     public void GameOver()

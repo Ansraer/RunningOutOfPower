@@ -1202,7 +1202,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 104553075}
-        m_MethodName: ShowScoreboard
+        m_MethodName: ButtonScoreboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -59,8 +59,9 @@ public class MenuMainManager : MonoBehaviour {
         SceneManager.LoadScene("SceneGameMain");
     }
 
-    public void ButtonAchievements()
+    public void ButtonScoreboard()
     {
+        SceneManager.LoadScene("SceneMenuScoreboard");
 
     }
 

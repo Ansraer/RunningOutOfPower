@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScoreboardMenuManager : MonoBehaviour {
@@ -10,6 +11,8 @@ public class ScoreboardMenuManager : MonoBehaviour {
     public Slider loadingBar;
 
     public Text inputName;
+
+    bool noScore = false;
 
     private bool nameSet = false;
     private bool boardLoaded = false;
@@ -30,9 +33,17 @@ public class ScoreboardMenuManager : MonoBehaviour {
         loadingBar.gameObject.SetActive(false);
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
+        if (GameManager.totalScore <= 0 && !noScore) {
+            dl.LoadScores();
+            nameSet = true;
+            this.namePanel.SetActive(false);
+            this.loadingBar.gameObject.SetActive(true);
+            noScore = true;
+        }
+        
         if (nameSet)
         {
             if (loadingBarGrowing)
@@ -108,5 +119,11 @@ public class ScoreboardMenuManager : MonoBehaviour {
 
         this.namePanel.SetActive(false);
         this.loadingBar.gameObject.SetActive(true);
+    }
+
+    public void ButtonMainMenu()
+    {
+        SceneManager.LoadScene("SceneMenuMain");
+
     }
 }

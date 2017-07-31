@@ -76,11 +76,14 @@ public class WorldGenerator : MonoBehaviour {
         worldGroundTiles = new int[worldHeight, worldWidth];
 
         //fill it with dirt
+
+        for (int id = 1; id<=this.tiles.Length-1; id++) {
+
         for (int len = 0; len < worldHeight; len++)
         {
             for (int wid = 0; wid < worldWidth; wid++)
             {
-                if (Random.Range(0f, 100f) < 3)
+                if (Random.Range(0f, 100f) < this.tiles[id].probability)
 
 
 
@@ -98,7 +101,7 @@ public class WorldGenerator : MonoBehaviour {
                                 if (widOre >= 0 && widOre < worldWidth)
                                 {
                                     if (Random.Range(0f, 100f) < 80)
-                                        worldGroundTiles[len, wid] = 1;
+                                        worldGroundTiles[len, wid] = id;
                                 }
                             }
                         }
@@ -109,7 +112,7 @@ public class WorldGenerator : MonoBehaviour {
             }
         }
 
-
+        }
     }
 
     void GenWorldObjects()

@@ -11,6 +11,9 @@ public class PlaceBuilding : MonoBehaviour {
     public Color blockedColor;
     public Color canBuildColor;
 
+    public float metalCost;
+    public float energyCost;
+
     public SpriteRenderer buildingSprite;
 
 
@@ -43,7 +46,7 @@ public class PlaceBuilding : MonoBehaviour {
 
         if (Input.GetButtonDown("Fire1"))
         {
-            Instantiate(buildingToPlace, tempPos, Quaternion.identity);
+            Place();
         }
         if (Input.GetButtonDown("Fire2"))
         {
@@ -52,6 +55,13 @@ public class PlaceBuilding : MonoBehaviour {
         }
     }
 
+
+    void Place()
+    {
+        if(GameManager.instance.SpendResources(this.energyCost, this.metalCost))
+            Instantiate(buildingToPlace, this.gameObject.transform.position, Quaternion.identity);
+
+    }
 
     //called when something enters the trigger
     void OnTriggerEnter2D(Collider2D other)
