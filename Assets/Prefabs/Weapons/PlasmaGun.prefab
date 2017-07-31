@@ -87,11 +87,7 @@ MonoBehaviour:
     type: 2}
   fireSound: {fileID: 8300000, guid: 2862ceca03f0cc24aa000d64814e7e32, type: 3}
   player: {fileID: 0}
-<<<<<<< HEAD
-  fireRate: 3
-=======
   fireRate: 0.3
->>>>>>> master
 --- !u!212 &212973880075259746
 SpriteRenderer:
   m_ObjectHideFlags: 1
