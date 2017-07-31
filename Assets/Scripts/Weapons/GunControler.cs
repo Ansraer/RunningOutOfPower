@@ -34,15 +34,7 @@ public class GunControler : MonoBehaviour {
         if (UnityEngine.Object.FindObjectOfType<PlaceBuilding>() != null)
             return;
 
-        /*
         //don't fire when the ui is beeing interacted with
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            if(EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.name != "Notification")
-                return;
-        }
-        */
-
         PointerEventData pointer = new PointerEventData(EventSystem.current);
         pointer.position = Input.mousePosition;
 
@@ -60,10 +52,13 @@ public class GunControler : MonoBehaviour {
 
 
 
-        //dont do something when the player is clicking an builkding
+        //dont do something when the player is clicking an building
         Collider2D col= Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f);
         if (col != null && col.gameObject.GetComponent<Building>() != null)
             return;
+
+
+
 
         if (Time.time - lastFired > fireRate && player.energy > this.energyConsumptionPerShot)
         {

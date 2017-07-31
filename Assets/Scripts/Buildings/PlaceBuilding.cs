@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlaceBuilding : MonoBehaviour {
 
@@ -58,8 +59,36 @@ public class PlaceBuilding : MonoBehaviour {
 
     void Place()
     {
-        if(GameManager.instance.SpendResources(this.energyCost, this.metalCost))
+
+        //don't fire when the ui is beeing interacted with
+        PointerEventData pointer = new PointerEventData(EventSystem.current);
+        pointer.position = Input.mousePosition;
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointer, raycastResults);
+
+        if (raycastResults.Count > 0)
+        {
+            foreach (var go in raycastResults)
+            {
+                if (go.gameObject.name != "Notification")
+                    return;
+            }
+        }
+
+
+
+        //dont do something when the player is clicking an building
+        Collider2D col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f);
+        if (col != null && col.gameObject.GetComponent<Building>() != null)
+            return;
+
+
+
+        if (GameManager.instance.SpendResources(this.energyCost, this.metalCost))
             Instantiate(buildingToPlace, this.gameObject.transform.position, Quaternion.identity);
+
+
 
     }
 

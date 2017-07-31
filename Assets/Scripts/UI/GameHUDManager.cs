@@ -11,6 +11,7 @@ public class GameHUDManager : MonoBehaviour {
 
     public Text health;
     public Text energy;
+    public Text metal;
     public Text notification;
 
     private EntityPlayer player;
@@ -44,6 +45,7 @@ public class GameHUDManager : MonoBehaviour {
         baseEnergy.value = GameManager.instance.currentEnergy / GameManager.instance.maxEnergy;
         float healthN = player.health/player.maxHealth * 100;
         health.text = "HP: " + Mathf.Round(healthN);
+        metal.text = Mathf.Round(GameManager.instance.currentMetal)+"";
     }
 
     public void sendNotification(string text)
