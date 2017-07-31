@@ -13,6 +13,10 @@ public class ScoreboardMenuManager : MonoBehaviour {
 
     public Text inputName;
 
+    public Text playerListText;
+    public Text scoreListText;
+    public Text timeListText;
+
     bool noScore = false;
 
     private bool nameSet = false;
@@ -40,7 +44,7 @@ public class ScoreboardMenuManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (!this.isDone)
+        if (this.isDone)
             return;
 
         if (GameManager.totalScore <= 0 && !noScore) {
@@ -89,15 +93,21 @@ public class ScoreboardMenuManager : MonoBehaviour {
 
                 int maxToDisplay = 20;
                 int count = 0;
+                string players = "Player\n\n";
+                string scores = "Score\n\n";
+                string times = "Time\n\n";
+
                 foreach (dreamloLeaderBoard.Score currentScore in scoreList)
                 {
 
                     count++;
 
                     Debug.Log(currentScore.playerName +" has a score of "+currentScore.score.ToString());
-                    
-                    
-                    
+
+                    players += currentScore.playerName + "\n";
+                    scores += currentScore.score + "\n";
+                    times += currentScore.seconds/60 + ":"+ currentScore.seconds%60 + "\n";
+
                     //GUILayout.BeginHorizontal();
                     //GUILayout.Label(currentScore.playerName, width200);
                     //GUILayout.Label(currentScore.score.ToString(), width200);
@@ -106,6 +116,10 @@ public class ScoreboardMenuManager : MonoBehaviour {
 
                     if (count >= maxToDisplay) break;
                 }
+
+                playerListText.text = players;
+                scoreListText.text = scores;
+                timeListText.text = times;
 
                 this.isDone = true;
 
