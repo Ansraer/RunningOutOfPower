@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,11 +23,23 @@ public class ProjectileController : MonoBehaviour {
 	}
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.isTrigger)
+            return;
+
         this.piercing--;
 
+        this.HitTarget(other);
 
+        if (piercing < 0)
+            Destroy(this.gameObject);
+
+
+    }
+
+    public virtual void HitTarget(Collider2D other)
+    {
         if (other.GetComponent<Entity>() == null)
             return;
 
@@ -37,12 +50,9 @@ public class ProjectileController : MonoBehaviour {
             return;
 
 
-        foreach (Entity.DamageResistance d in this.damages) {
+        foreach (Entity.DamageResistance d in this.damages)
+        {
             other.GetComponent<Entity>().TakeDamage(d.type, d.amount);
         }
-
-        if (piercing < 0)
-            Destroy(this.gameObject);
-
     }
 }

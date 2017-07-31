@@ -122,7 +122,9 @@ MonoBehaviour:
   maxHealth: 100
   health: 0
   healthRegenPerSecond: 0
-  resistances: []
+  resistances:
+  - type: 2
+    amount: 0.1
   defaultMovementSpeed: 4
   state: 0
   maxAttackDistance: 5

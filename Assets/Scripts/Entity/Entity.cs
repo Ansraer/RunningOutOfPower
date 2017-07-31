@@ -61,7 +61,7 @@ public class Entity : MonoBehaviour {
         foreach (DamageResistance resistance in this.resistances)
         {
             if (resistance.type == type)
-                amount += (1 - resistance.amount);
+                amount *= (1 - resistance.amount);
         }
 
 
