@@ -24,6 +24,10 @@ public class GameHUDManager : MonoBehaviour {
     public GameObject buildMenu;
     private bool showBuildMenu = false;
 
+    public Text MiningPopup;
+
+    public int seenOre=0;
+
 	// Use this for initialization
 	void Start () {
         energy.text = "Energy: 100";
@@ -46,7 +50,20 @@ public class GameHUDManager : MonoBehaviour {
         float healthN = player.health/player.maxHealth * 100;
         health.text = "HP: " + Mathf.Round(healthN);
         metal.text = Mathf.Round(GameManager.instance.currentMetal)+"";
+
+        if(seenOre >0)
+        seenOre--;
+
+        if (seenOre > 0)
+        {
+            MiningPopup.gameObject.SetActive(true);
+        } else
+        {
+            MiningPopup.gameObject.SetActive(false);
+        }
     }
+
+
 
     public void sendNotification(string text)
     {

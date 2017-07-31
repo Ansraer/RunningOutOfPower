@@ -12,18 +12,26 @@ public class MineableTile : MonoBehaviour {
     public float harvestTime=60;
     public float mineTime;
 
+    public bool isTouchingPlayer = false;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        if (isTouchingPlayer)
+        {
+            GameHUDManager.instance.seenOre = 5;
+        }
+        isTouchingPlayer = false;
+
         if (this.mineTime > this.harvestTime)
             this.Mine();
 	}
+
 
     void Mine()
     {
@@ -53,8 +61,12 @@ public class MineableTile : MonoBehaviour {
     {
         if (other.gameObject.layer==LayerMask.NameToLayer("Player"))
         {
+            this.isTouchingPlayer = true;
+
             if (other.GetComponent<EntityPlayer>().isInteracting)
+            {
                 this.mineTime++;
+            }
 
         }
     }

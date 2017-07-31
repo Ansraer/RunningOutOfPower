@@ -45,7 +45,7 @@ public class GunControler : MonoBehaviour {
         {
             foreach (var go in raycastResults)
             {
-                if (go.gameObject.name != "Notification")
+                if (go.gameObject.name != "Notification" && go.gameObject.name != "MiningPopup")
                     return;
             }
         }
