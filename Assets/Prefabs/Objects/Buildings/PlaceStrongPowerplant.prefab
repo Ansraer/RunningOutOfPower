@@ -80,7 +80,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 0.32, y: 0.32}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -103,6 +103,8 @@ MonoBehaviour:
     type: 2}
   blockedColor: {r: 1, g: 0, b: 0, a: 0.741}
   canBuildColor: {r: 0.19999993, g: 1, b: 0, a: 0.703}
+  metalCost: 0
+  energyCost: 0
   buildingSprite: {fileID: 212938017186350324}
 --- !u!212 &212938017186350324
 SpriteRenderer:
@@ -136,13 +138,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7b4334bc0e9213b488b2a351350e6491, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d0d6c3c928e52245bb009e2a3bf9a0d, type: 3}
   m_Color: {r: 0.3602941, g: 1, b: 0.5235293, a: 0.759}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
