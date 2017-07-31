@@ -82,12 +82,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1338254193920762}
-  energyConsumptionPerShot: 10
+  energyConsumptionPerShot: 30
   projectile: {fileID: 114663846680182396, guid: 213047cddb4851441bef952ddef10ef4,
     type: 2}
   fireSound: {fileID: 8300000, guid: ec5f7fc2be3f48d4db7969737db3e438, type: 3}
   player: {fileID: 0}
-  fireRate: 20
+  fireRate: 2
 --- !u!212 &212973880075259746
 SpriteRenderer:
   m_ObjectHideFlags: 1
