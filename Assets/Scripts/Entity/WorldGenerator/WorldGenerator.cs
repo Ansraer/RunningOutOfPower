@@ -98,8 +98,6 @@ public class WorldGenerator : MonoBehaviour {
                                 if (widOre >= 0 && widOre < worldWidth)
                                 {
                                         if (Random.Range(0f, 100f) < 80)
-
-                                            Debug.Log("placing ore");
                                         worldGroundTiles[len, wid] = id;
                                 }
                             }

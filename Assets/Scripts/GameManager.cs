@@ -82,8 +82,16 @@ public class GameManager : MonoBehaviour {
             currentWave++;
 
 
-            //TODO change Wave size depending on currentWave
-            int waveSize = 10;
+
+            int waveSize = Mathf.FloorToInt(8 + Mathf.Pow(currentWave, 1.6f) * 1.5f);
+
+
+            float totalSum = 0;
+
+            foreach(SpawnChances chance in this.enemies)
+            {
+                totalSum += chance.chance;
+            }
 
 
             for (int i = 0; i < waveSize; i++)
@@ -94,10 +102,16 @@ public class GameManager : MonoBehaviour {
 
 
 
-                //TODO: change enemy index to respect enemy weight 
+
+                float index = UnityEngine.Random.Range(0, totalSum);
+                float sum = 0;
                 int enemyIndex = 0;
 
-
+                while (sum < index)
+                {
+                    enemyIndex++;
+                    sum = sum + enemies[enemyIndex].chance;
+                }
 
 
                 Instantiate(enemies[enemyIndex].entity, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
