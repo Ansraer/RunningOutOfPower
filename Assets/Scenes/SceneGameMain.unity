@@ -3239,7 +3239,7 @@ MonoBehaviour:
     probability: 0
   - gameObject: {fileID: 1589469965339784, guid: a97671ad933252c49a5af0025c196c58,
       type: 2}
-    probability: 0
+    probability: 3
   objects:
   - gameObject: {fileID: 1750074912372882, guid: 28c51c47e9c85024fbde828e1a2005fa,
       type: 2}

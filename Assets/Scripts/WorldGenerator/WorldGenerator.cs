@@ -119,30 +119,35 @@ public class WorldGenerator : MonoBehaviour {
     {
         worldObjects = new int[worldHeight, worldWidth];
 
-        for (int len = 0; len < worldHeight; len++)
+
+        for (int id = 0; id <= this.objects.Length - 1; id++)
         {
-            for (int wid = 0; wid < worldWidth; wid++)
+
+            for (int len = 0; len < worldHeight; len++)
             {
-
-                worldObjects[len, wid] = -1;
-
-                if (Random.Range(0f, 100f) < 25f)
+                for (int wid = 0; wid < worldWidth; wid++)
                 {
-                    worldObjects[len, wid] = 0;
-                }
 
-
-
-                //clearing up center
-                float distance = Mathf.Sqrt(Mathf.Pow(len-worldHeight/2,2) + Mathf.Pow(wid-worldWidth/2,2));
-                if (distance < freeSpaceRadius)
-                {
                     worldObjects[len, wid] = -1;
+
+                    if (Random.Range(0f, 100f) < this.objects[id].probability)
+                    {
+                        worldObjects[len, wid] = id;
+                    }
+
+
+
+                    //clearing up center
+                    float distance = Mathf.Sqrt(Mathf.Pow(len - worldHeight / 2, 2) + Mathf.Pow(wid - worldWidth / 2, 2));
+                    if (distance < freeSpaceRadius)
+                    {
+                        worldObjects[len, wid] = -1;
+                    }
+
                 }
-
             }
-        }
 
+        }
 
     }
 
