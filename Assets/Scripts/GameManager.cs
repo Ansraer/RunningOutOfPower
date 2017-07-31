@@ -74,6 +74,9 @@ public class GameManager : MonoBehaviour {
     IEnumerator EnemyWaveManager()
     {
 
+        yield return new WaitForSeconds(UnityEngine.Random.Range(minWaveBreakTime, maxWaveBreakTime));
+
+
         if (spawnPoints.Count() < 1)
         {
             Debug.LogError("Warning, there are not enough spawn points. Please add more transforms to the array.");
@@ -102,16 +105,16 @@ public class GameManager : MonoBehaviour {
             {
 
                 GameHUDManager.instance.sendNotification("WARNING : ENEMIES INCOMING");
-                int spawnPointIndex = UnityEngine.Random.Range(0, spawnPoints.Count());
+                int spawnPointIndex = UnityEngine.Random.Range(0, spawnPoints.Count()-1);
 
 
 
 
                 float index = UnityEngine.Random.Range(0, totalSum);
                 float sum = 0;
-                int enemyIndex = 0;
+                int enemyIndex = -1;
 
-                while (sum < index)
+                while (sum < totalSum)
                 {
                     enemyIndex++;
                     sum = sum + enemies[enemyIndex].chance;
@@ -119,7 +122,7 @@ public class GameManager : MonoBehaviour {
 
 
                 Instantiate(enemies[enemyIndex].entity, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-                yield return new WaitForSeconds(UnityEngine.Random.Range(0.2f, 0.5f));
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0.4f, 0.6f));
             }
             yield return new WaitForSeconds(UnityEngine.Random.Range(minWaveBreakTime, maxWaveBreakTime));
         }
