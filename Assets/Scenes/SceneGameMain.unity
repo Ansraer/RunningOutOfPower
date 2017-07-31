@@ -565,11 +565,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4878939822716206, guid: 0b29060b1ea20294fadbbc5de419bc39, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4878939822716206, guid: 0b29060b1ea20294fadbbc5de419bc39, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4878939822716206, guid: 0b29060b1ea20294fadbbc5de419bc39, type: 2}
       propertyPath: m_LocalPosition.z
@@ -595,6 +595,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114269183872650206, guid: 0b29060b1ea20294fadbbc5de419bc39,
+        type: 2}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 114663846680182396, guid: 213047cddb4851441bef952ddef10ef4,
+        type: 2}
+    - target: {fileID: 114269183872650206, guid: 0b29060b1ea20294fadbbc5de419bc39,
+        type: 2}
+      propertyPath: defaultGunPrefab
+      value: 
+      objectReference: {fileID: 114062377026079412, guid: a4a5bc1bbaac2f34eb662620d725bfd4,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b29060b1ea20294fadbbc5de419bc39, type: 2}
   m_IsPrefabParent: 0
