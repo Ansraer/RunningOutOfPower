@@ -13,8 +13,6 @@ public class WorldGenerator : MonoBehaviour {
         public int probability;
     }
 
-    public AstarPath astar;
-
     //the probability numbers in the whole array have to add up to 2048 for the gen to work correctly
     public GenObjects[] tiles;
     public GenObjects[] objects;
@@ -31,7 +29,7 @@ public class WorldGenerator : MonoBehaviour {
     private int[,] worldGroundTiles;
     private int[,] worldObjects;
 
-
+    public int astarResolution = 2;
 
     void Start()
     {
@@ -48,10 +46,9 @@ public class WorldGenerator : MonoBehaviour {
         world.transform.position = new Vector3(-worldWidth / 2, -worldHeight / 2, 0);
 
         GameObject tempTile = Instantiate(centerBuilding, new Vector3(0, 0, 0), Quaternion.identity);
-        tempTile.transform.parent = world.transform;
 
-        astar.data.gridGraph.SetDimensions(worldWidth, worldHeight,1);
-        astar.Scan();
+        AstarPath.active.data.gridGraph.SetDimensions(worldWidth*this.astarResolution, worldHeight * this.astarResolution, 1f/this.astarResolution);
+        AstarPath.active.Scan();
 
     }
 

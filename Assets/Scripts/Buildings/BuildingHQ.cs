@@ -28,8 +28,15 @@ public class BuildingHQ : Building {
     public override void SwitchState()
     {
         base.SwitchState();
-
+        changeForceFieldRadius();
         this.forceField.SetActive(this.activated);
+        GameManager.instance.forceFieldActive = this.activated;
+        GameManager.instance.AstarRescan();
+    }
+
+    public void changeForceFieldRadius()
+    {
+        this.forceField.transform.localScale = new Vector3(GameManager.instance.forceFieldRadius*2, GameManager.instance.forceFieldRadius*2, 1);
     }
 
     public override void Dead()

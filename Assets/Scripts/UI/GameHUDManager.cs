@@ -18,7 +18,7 @@ public class GameHUDManager : MonoBehaviour {
     public GameObject infoBox;
     public Text infoBoxTitle;
     public Text infoBoxContent;
-    private GameObject buildingInfoBox;
+    private Building buildingInfoBox;
 
     public GameObject buildMenu;
     private bool showBuildMenu = false;
@@ -53,7 +53,7 @@ public class GameHUDManager : MonoBehaviour {
         notification.CrossFadeAlpha(0, 2, false);
     }
 
-    public void ShowInfoBox(GameObject building, string title, string content)
+    public void ShowInfoBox(Building building, string title, string content)
     {
         this.buildingInfoBox = building;
         infoBox.SetActive(true);
@@ -70,7 +70,7 @@ public class GameHUDManager : MonoBehaviour {
     public void ButtonInfoBoxDestroy()
     {
         infoBox.SetActive(false);
-        Destroy(buildingInfoBox);
+        buildingInfoBox.Dead();
     }
 
     public void toggleBuildMenu()

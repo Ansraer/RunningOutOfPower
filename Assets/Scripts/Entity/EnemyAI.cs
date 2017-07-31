@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyAI : EntityLiving
@@ -52,7 +53,16 @@ public class EnemyAI : EntityLiving
         rb2d = GetComponent<Rigidbody2D>();
         StartCoroutine(EnemyFSM());
     }
-    
+
+    void OnDrawGizmos()
+    {
+        
+
+        Gizmos.DrawSphere(
+        this.transform.position + this.transform.rotation * (Vector2.up * 0.9f), 0.1f);
+    }
+
+
     #endregion
 
 
@@ -91,24 +101,21 @@ public class EnemyAI : EntityLiving
             //aqcuire tagert, default to 
             if (this.target == null)
             {
+                GameObject tempTarget = FindTarget();
 
-                EntityPlayer[] players = UnityEngine.Object.FindObjectsOfType<EntityPlayer>();
-                foreach (EntityPlayer p in players)
+
+                if (tempTarget == null)
                 {
-                    if (Vector3.Distance(this.transform.position, p.transform.position) <= this.maxDetectionDistance)
-                    {
 
-                        this.target = p.gameObject;
-                        yield return null;
-                        yield break;
-                    }
+                    BuildingHQ hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>();
+                    //if there is really no other option, attack hq
+                    if (hq != null)
+                        this.target = hq.gameObject;
+
+                } else
+                {
+                    target = tempTarget;
                 }
-
-                
-                GameObject hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>().gameObject;
-                if (hq != null)
-                    this.target = hq;
-
 
             }
 
@@ -127,8 +134,19 @@ public class EnemyAI : EntityLiving
 
     IEnumerator WALK()
     {
+        if (this.target == null)
+        {
 
-        var seeker = GetComponent<Seeker>();
+            this.state = ENEMY_STATE.ATTACK;
+            this.path = null;
+            rb2d.velocity = new Vector3(0, 0, 0);
+
+            yield return null;
+            yield break;
+        }
+
+
+            var seeker = GetComponent<Seeker>();
         // Start a new path request from the current position to a position 10 units forward.
         // When the path has been calculated, it will be returned to the function OnPathComplete unless it was canceled by another path request
         seeker.StartPath(transform.position, this.target.transform.position, OnPathComplete);
@@ -139,10 +157,87 @@ public class EnemyAI : EntityLiving
         // EXECUTE IDLE STATE
         while (state == ENEMY_STATE.WALK)
         {
+            //update target
+            this.handleTarget();
+
             //restart in case path hasn't been generated yet
             if (this.path == null) {
                 yield return null;
                 continue;
+            }
+
+
+            
+
+
+            if(currentWaypoint>= path.vectorPath.Count)
+            {
+                Debug.Log("current waypoint: " + currentWaypoint);
+                Debug.Log("Path length: " + path.vectorPath.Count);
+            }
+
+
+            // Direction to the next waypoint
+            Vector3 dir1 = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+
+            float angle1 = Mathf.Atan2(dir1.y, dir1.x) * Mathf.Rad2Deg - 90;
+
+            //CHECK IF SOMETHING IS BLOCKING THE WAY
+            // do this shit less often
+            Collider2D collider = Physics2D.OverlapCircle(this.transform.position + Quaternion.AngleAxis(angle1, Vector3.forward) * (Vector2.up * 0.9f), 0.1f);
+            
+
+            if (collider != null && collider.gameObject.GetComponent<Entity>() != null)
+            {
+                if(collider.gameObject == this.target)
+                {
+                    //THATS THE ENEMY!!!! KILL IT!
+                    this.state = ENEMY_STATE.ATTACK;
+                    this.path = null;
+                    rb2d.velocity = new Vector3(0, 0, 0);
+
+                    yield return null;
+                    yield break;
+                } else if (collider.gameObject.GetComponent<Building>() != null || collider.gameObject.GetComponent<EntityPlayer>() != null)
+                {
+                    //You are running into a building/player idiot. DESTROY IT!
+                    this.target = collider.gameObject;
+                    this.state = ENEMY_STATE.ATTACK;
+                    this.path = null;
+                    rb2d.velocity = new Vector3(0, 0, 0);
+
+                    yield return null;
+                    yield break;
+                }
+                /**
+                else if (collider.gameObject.GetComponent<EntityForceField>() != null)
+                {
+                    //Damn it. there is a forcefield in front of us. Shit, shit shit.
+                    //try to break through
+                    this.target = collider.gameObject;
+                    this.state = ENEMY_STATE.ATTACK;
+                    this.path = null;
+
+                    rb2d.velocity = new Vector3(0, 0, 0);
+
+                    yield return null;
+                    yield break;
+                }
+    */
+                else if (collider.gameObject.GetComponent<EnemyAI>() != null)
+                {
+                    //You are running into a mate idiot. Let him pass
+
+                    rb2d.velocity = new Vector3(0, 0, 0);
+
+                    this.target = null;
+                    handleTarget();
+
+                    yield return null;
+                    yield break;
+                }
+
+
             }
 
 
@@ -155,28 +250,7 @@ public class EnemyAI : EntityLiving
             }
 
 
-            //make sure that the waypoint actually exists
-            if (currentWaypoint > path.vectorPath.Count)
-            {
-                this.state = ENEMY_STATE.IDLE;
-                this.path = null;
-                rb2d.velocity = new Vector3(0,0,0);
 
-
-                yield return null;
-                yield break;
-            }
-
-            if (currentWaypoint == path.vectorPath.Count)
-            {
-                this.state = ENEMY_STATE.IDLE;
-                this.path = null;
-                rb2d.velocity = new Vector3(0,0,0);
-
-
-                yield return null;
-                yield break;
-            }
 
 
             // Direction to the next waypoint
@@ -198,9 +272,17 @@ public class EnemyAI : EntityLiving
             }
 
 
-            //update target
-            this.handleTarget();
+            //make sure that the waypoint actually exists
+            if (currentWaypoint >= path.vectorPath.Count)
+            {
+                this.state = ENEMY_STATE.IDLE;
+                this.path = null;
+                rb2d.velocity = new Vector3(0, 0, 0);
+                currentWaypoint = 0;
 
+                yield return null;
+                yield break;
+            }
             yield return null;
 
         }
@@ -223,7 +305,7 @@ public class EnemyAI : EntityLiving
                 yield break;
             }
 
-            //don't move when idle
+            //don't move when attacking
             this.rb2d.velocity = new Vector3();
 
             //look at target
@@ -244,8 +326,6 @@ public class EnemyAI : EntityLiving
                     }
                 }
             }
-
-
 
             //update target
             this.handleTarget();
@@ -268,23 +348,126 @@ public class EnemyAI : EntityLiving
         }
     }
 
+    private GameObject FindTarget()
+    {
+
+        EntityPlayer[] players = UnityEngine.Object.FindObjectsOfType<EntityPlayer>();
+        foreach (EntityPlayer p in players)
+        {
+            if (Vector3.Distance(this.transform.position, p.transform.position) <= this.maxDetectionDistance)
+            {
+                //only target Player if he is not under the forcefield
+                if (!GameManager.instance.forceFieldActive || Vector3.Distance(p.transform.position, new Vector3()) > GameManager.instance.forceFieldRadius)
+                {
+
+                    if(p.health>0)
+                        return p.gameObject;
+                    
+                }
+            }
+        }
+
+        //target HQ building if its not protected
+        BuildingHQ hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>();
+        if (hq != null && !GameManager.instance.forceFieldActive)
+        {
+            if(hq.health>0)
+                return hq.gameObject;
+            
+
+        }
+
+
+        //target nearby building
+        Building[] bs = UnityEngine.Object.FindObjectsOfType<Building>();
+        Debug.Log("found buildings: " + bs.Count());
+
+        foreach (Building b in bs)
+        {
+            Debug.Log("building might be null");
+            if (b != null)
+            {
+                Debug.Log("building not null");
+                if (!GameManager.instance.forceFieldActive || Vector3.Distance(b.transform.position, new Vector3()) > GameManager.instance.forceFieldRadius)
+                {
+
+                    Debug.Log("building not under forcefield");
+
+                    if (b.health > 0)
+                    {
+                        Debug.Log("building not under forcefield");
+                        return b.gameObject;
+
+
+                    }
+
+                }
+
+            }
+        }
+
+        return null;
+    }
+
     //changes state depending on target, dissmises unrealistic target
     private void handleTarget()
     {
         if (this.target != null && target.GetComponent<Entity>().health > 0)
         {
+            //check if the target is a forcefield or protected by one
+            if (target.GetComponent<EntityForceField>() != null || (GameManager.instance.forceFieldActive && Vector3.Distance(target.transform.position, new Vector3()) < GameManager.instance.forceFieldRadius))
+            {
+
+                //target is under force field. Shit.
+                //check if there is a better target somewhere.
+
+                GameObject tempTarget = FindTarget();
+
+                if (tempTarget != null)
+                {
+
+
+                    if (tempTarget != target)
+                    {
+
+                    this.target = tempTarget;
+                    return;
+                    }
+
+
+                } else
+                {
+                    if (UnityEngine.Object.FindObjectOfType<EntityForceField>() != null)
+                    {
+                        this.target = UnityEngine.Object.FindObjectOfType<EntityForceField>().gameObject;
+                    }
+                    Debug.Log("found no new target");
+                }
+            }
+
+
+            float distance = 0;
+
+            Collider2D targetCollider = target.GetComponent<Collider2D>();
+            if (targetCollider != null)
+            {
+                distance = targetCollider.Distance(this.GetComponent<Collider2D>()).distance;
+            } else {
+                distance = Vector3.Distance(this.transform.position, this.target.transform.position);
+            }
+                
+
 
             //attack the enemy if he is close enough
-            if (Vector3.Distance(this.transform.position, this.target.transform.position) <= this.maxAttackDistance)
+            if (distance <= this.maxAttackDistance)
             {
                 state = ENEMY_STATE.ATTACK;
 
             }
-            else if (Vector3.Distance(this.transform.position, this.target.transform.position) > this.maxAttackDistance)
+            else if (distance > this.maxAttackDistance)
             {
-
                 //only walk towards far away target if it is not a player
-                if (this.target.GetComponent<EntityPlayer>() != null && Vector3.Distance(this.transform.position, this.target.transform.position) > this.maxChaseDistance)
+                if (this.target.GetComponent<EntityPlayer>() != null && distance > this.maxChaseDistance)
                 {
                     this.target = null;
                     this.path = null;
@@ -303,8 +486,10 @@ public class EnemyAI : EntityLiving
 
         } else
         {
+            this.target = null;
             this.path = null;
             this.state = ENEMY_STATE.IDLE;
+
         }
     }
 

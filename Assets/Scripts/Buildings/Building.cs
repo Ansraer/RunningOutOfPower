@@ -21,6 +21,13 @@ public abstract class Building : Entity {
         this.activated = false;
     }
 
+    public override void Dead()
+    {
+
+        this.health = 0;
+        GameManager.buildings.Remove(this);
+        Destroy(this.gameObject);
+    }
 
     public virtual float GetPowerConsumption()
     {
@@ -38,7 +45,12 @@ public abstract class Building : Entity {
         }
     }
 
-    public abstract void ShowGUI();
+    public virtual void ShowGUI()
+    {
+
+        GameHUDManager.instance.ShowInfoBox(this, "ExampleText", "This is an example text.");
+
+    }
 
     public virtual void SwitchState()
     {

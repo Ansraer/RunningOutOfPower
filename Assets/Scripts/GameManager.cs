@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour {
 
 
 
+    public float forceFieldRadius = 9;
+    public bool forceFieldActive = false;
+
+
     public float maxEnergy = 1000;
     public float currentEnergy = 0;
 
@@ -114,6 +118,12 @@ public class GameManager : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public void AstarRescan()
+    {
+        AstarPath.active.Scan();
+
     }
 
     public void GameOver()
