@@ -15,6 +15,8 @@ public class PlaceBuilding : MonoBehaviour {
     public float metalCost;
     public float energyCost;
 
+    public int placeScore = 10;
+
     public SpriteRenderer buildingSprite;
 
 
@@ -86,8 +88,10 @@ public class PlaceBuilding : MonoBehaviour {
 
 
         if (GameManager.instance.SpendResources(this.energyCost, this.metalCost))
+        {
             Instantiate(buildingToPlace, this.gameObject.transform.position, Quaternion.identity);
-
+            GameManager.totalScore += placeScore;
+        }
 
 
     }

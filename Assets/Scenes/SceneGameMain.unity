@@ -2003,7 +2003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1149719665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3313,6 +3313,7 @@ MonoBehaviour:
   infoBoxContent: {fileID: 766516691}
   buildMenu: {fileID: 1985819103}
   MiningPopup: {fileID: 1149719665}
+  seenOre: 0
 --- !u!1 &1985819103
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,8 +41,6 @@ public class MenuMainManager : MonoBehaviour {
 
             yield return new WaitForSeconds(Random.Range(minFlickerSpeed/7, maxFlickerSpeed/8));
 
-            Debug.Log("setting colors back to normal");
-
             colors.normalColor = defaultNormalColor;
             b.colors = colors;
             b.GetComponentInChildren<Text>().color = defaultNormalColor;

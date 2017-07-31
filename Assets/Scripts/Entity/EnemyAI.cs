@@ -24,6 +24,7 @@ public class EnemyAI : EntityLiving
 
     public float maxChaseDistance = 15;
 
+    public int scoreValue = 10;
 
     public float attackRate = .3f;
     private float lastAttack=-9999999;
@@ -52,6 +53,14 @@ public class EnemyAI : EntityLiving
         state = ENEMY_STATE.IDLE;
         rb2d = GetComponent<Rigidbody2D>();
         StartCoroutine(EnemyFSM());
+    }
+
+    public override void Dead()
+    {
+        this.health = 0;
+
+        GameManager.totalScore += this.scoreValue;
+        Destroy(this.gameObject);
     }
 
     void OnDrawGizmos()

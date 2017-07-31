@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -39,7 +40,10 @@ public class GameManager : MonoBehaviour {
     public float currentMetal;
 
     public static List<Building> buildings = new List<Building>();
-    internal static int totalScore = 0;
+    public static int totalScore = 0;
+
+    public float startTime = 0;
+    public static float gameTime = 0;
 
 
     // Use this for initialization
@@ -50,7 +54,7 @@ public class GameManager : MonoBehaviour {
         currentEnergy = maxEnergy;
 
         totalScore = 10;
-
+        startTime = Time.time;
 
         //update power level every second
         InvokeRepeating("updateBuildingEffects", 0, 1);
@@ -200,7 +204,9 @@ public class GameManager : MonoBehaviour {
 
     public void GameOver()
     {
+        gameTime = Time.time - startTime;
 
+        SceneManager.LoadScene("SceneMenuScoreboard");
     }
 
     public enum ItemResources

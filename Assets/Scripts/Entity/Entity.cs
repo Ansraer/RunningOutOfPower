@@ -37,8 +37,10 @@ public class Entity : MonoBehaviour {
 
 
         //apply health regen
+        
         this.health += this.healthRegenPerSecond * Time.deltaTime;
-
+        if (health > this.maxHealth)
+            health = this.maxHealth;
 
         foreach (EntityEffect ef in this.activeEffects)
         {

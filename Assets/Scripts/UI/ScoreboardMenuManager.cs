@@ -9,6 +9,7 @@ public class ScoreboardMenuManager : MonoBehaviour {
     public GameObject scoreboardPanel;
     public GameObject namePanel;
     public Slider loadingBar;
+    public Text scoreText;
 
     public Text inputName;
 
@@ -21,6 +22,7 @@ public class ScoreboardMenuManager : MonoBehaviour {
     public float loadingBarStep = 0.02f;
 
     dreamloLeaderBoard dl;
+    private bool isDone=false;
 
     // Use this for initialization
     void Start () {
@@ -28,6 +30,8 @@ public class ScoreboardMenuManager : MonoBehaviour {
         // get the reference here...
         this.dl = dreamloLeaderBoard.GetSceneDreamloLeaderboard();
 
+
+        scoreText.text = GameManager.totalScore+"";
         scoreboardPanel.SetActive(false);
         namePanel.SetActive(true);
         loadingBar.gameObject.SetActive(false);
@@ -36,6 +40,9 @@ public class ScoreboardMenuManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (!this.isDone)
+            return;
+
         if (GameManager.totalScore <= 0 && !noScore) {
             dl.LoadScores();
             nameSet = true;
@@ -88,13 +95,19 @@ public class ScoreboardMenuManager : MonoBehaviour {
                     count++;
 
                     Debug.Log(currentScore.playerName +" has a score of "+currentScore.score.ToString());
+                    
+                    
+                    
                     //GUILayout.BeginHorizontal();
                     //GUILayout.Label(currentScore.playerName, width200);
                     //GUILayout.Label(currentScore.score.ToString(), width200);
+                    ///time in second. format it into min:sec    currentScore.seconds.ToString
                     //GUILayout.EndHorizontal();
 
                     if (count >= maxToDisplay) break;
                 }
+
+                this.isDone = true;
 
             }
         }
@@ -113,7 +126,7 @@ public class ScoreboardMenuManager : MonoBehaviour {
         if (dl.publicCode == "") Debug.LogError("You forgot to set the publicCode variable");
         if (dl.privateCode == "") Debug.LogError("You forgot to set the privateCode variable");
 
-        dl.AddScore(name, GameManager.totalScore);
+        dl.AddScore(name, GameManager.totalScore, Mathf.FloorToInt(GameManager.gameTime));
 
         nameSet = true;
 
