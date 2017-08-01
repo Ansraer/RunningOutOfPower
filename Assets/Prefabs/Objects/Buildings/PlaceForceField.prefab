@@ -105,6 +105,7 @@ MonoBehaviour:
   canBuildColor: {r: 0.19999993, g: 1, b: 0, a: 0.703}
   metalCost: 0
   energyCost: 0
+  placeScore: 10
   buildingSprite: {fileID: 212938017186350324}
 --- !u!212 &212938017186350324
 SpriteRenderer:
@@ -138,7 +139,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a92c3d348f6b6e447acc728a411907a2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b37d3d87c47a8d478e7c876f94c9102, type: 3}
   m_Color: {r: 0.3602941, g: 1, b: 0.5235293, a: 0.759}
   m_FlipX: 0
   m_FlipY: 0

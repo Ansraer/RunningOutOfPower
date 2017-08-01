@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingEnergy : Building {
+public class BuildingPowerplant : Building {
     
 	
 	// Update is called once per frame
