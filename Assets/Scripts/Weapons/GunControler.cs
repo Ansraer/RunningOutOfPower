@@ -67,6 +67,7 @@ public class GunControler : MonoBehaviour {
                 player.GetComponent<AudioSource>().PlayOneShot(this.fireSound, .5f);
 
             player.energy -= this.energyConsumptionPerShot;
+            Debug.Log(player.energy);
 
             ProjectileController p = Instantiate(projectile, this.muzzle.transform.position, this.transform.rotation);
             p.GetComponent<Rigidbody2D>().AddForce(this.transform.rotation * (Vector2.up * p.projectileSpeed));

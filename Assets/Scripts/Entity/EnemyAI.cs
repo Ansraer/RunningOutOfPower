@@ -176,14 +176,7 @@ public class EnemyAI : EntityLiving
             }
 
 
-            
-
-
-            if(currentWaypoint>= path.vectorPath.Count)
-            {
-                Debug.Log("current waypoint: " + currentWaypoint);
-                Debug.Log("Path length: " + path.vectorPath.Count);
-            }
+           
 
 
             // Direction to the next waypoint
@@ -389,22 +382,17 @@ public class EnemyAI : EntityLiving
 
         //target nearby building
         Building[] bs = UnityEngine.Object.FindObjectsOfType<Building>();
-        Debug.Log("found buildings: " + bs.Count());
 
         foreach (Building b in bs)
         {
-            Debug.Log("building might be null");
             if (b != null)
             {
-                Debug.Log("building not null");
                 if (!GameManager.instance.forceFieldActive || Vector3.Distance(b.transform.position, new Vector3()) > GameManager.instance.forceFieldRadius)
                 {
 
-                    Debug.Log("building not under forcefield");
 
                     if (b.health > 0)
                     {
-                        Debug.Log("building not under forcefield");
                         return b.gameObject;
 
 
@@ -450,7 +438,6 @@ public class EnemyAI : EntityLiving
                     {
                         this.target = UnityEngine.Object.FindObjectOfType<EntityForceField>().gameObject;
                     }
-                    Debug.Log("found no new target");
                 }
             }
 

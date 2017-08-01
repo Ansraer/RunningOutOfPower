@@ -180,6 +180,7 @@ MonoBehaviour:
   muzzle: {fileID: 0}
   gun: {fileID: 0}
   energy: 0
+  maxEnergy: 1000
 --- !u!212 &212947382282665792
 SpriteRenderer:
   m_ObjectHideFlags: 1

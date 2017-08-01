@@ -35,8 +35,8 @@ public class GameHUDManager : MonoBehaviour {
         instance = this;
 
 
-        energy.text = "Energy: 100";
-        health.text = "HP: 100";
+        energy.text = "POWER: 100";
+        health.text = "ENERGY: 100";
         sendNotification("Hi");
 
 
@@ -53,8 +53,13 @@ public class GameHUDManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         baseEnergy.value = GameManager.instance.currentEnergy / GameManager.instance.maxEnergy;
+
         float healthN = player.health/player.maxHealth * 100;
-        health.text = "HP: " + Mathf.Round(healthN);
+        health.text = "HEALTH: " + Mathf.Round(healthN);
+
+        float powerN = player.energy / player.maxEnergy * 100;
+       energy.text = "ENERGY: " + powerN;
+
         metal.text = Mathf.Round(GameManager.instance.currentMetal)+"";
 
         if(seenOre >0)
