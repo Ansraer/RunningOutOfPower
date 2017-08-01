@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingForceField : Building {
+public class BuildingUnlockWeapon : Building {
     
 	
 	// Update is called once per frame
@@ -13,7 +13,7 @@ public class BuildingForceField : Building {
 
     public override void ShowGUI()
     {
-        GameHUDManager.instance.ShowInfoBox(this, "Force Field Upgrade", "This is an example text.");
+        GameHUDManager.instance.ShowInfoBox(this, "Unlock Weapon", "This is an example text.");
     }
 
 

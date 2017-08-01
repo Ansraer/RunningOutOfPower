@@ -13,7 +13,7 @@ public class BuildingRevive : Building {
 
     public override void ShowGUI()
     {
-        GameHUDManager.instance.ShowInfoBox(this, "PowerPlant", "This is an example text.");
+        GameHUDManager.instance.ShowInfoBox(this, "Revive", "This is an example text.");
     }
 
 

@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4854613488236980}
   - component: {fileID: 212330817498914594}
   - component: {fileID: 61654767717804492}
-  - component: {fileID: 114852963631439146}
+  - component: {fileID: 114564217127275882}
   m_Layer: 0
-  m_Name: BuildingWeaponUnlock
+  m_Name: BuildingUnlockWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114852963631439146
+--- !u!114 &114564217127275882
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,17 +75,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1137524561497758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c83fd8defd96da458432c058618beb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 60ce4d0e9c4633f4ea71db9289357c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 100
   health: 0
-  healthRegenPerSecond: 5
+  healthRegenPerSecond: 0
   resistances: []
   activated: 0
-  idlePowerUsage: -2
-  activePowerUsage: -2
-  bootupEnergy: 0
+  idlePowerUsage: 2
+  activePowerUsage: 3
+  bootupEnergy: 30
 --- !u!212 &212330817498914594
 SpriteRenderer:
   m_ObjectHideFlags: 1
