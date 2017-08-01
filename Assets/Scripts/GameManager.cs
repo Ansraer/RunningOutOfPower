@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public static GunControler[] unlockedWeapons = new GunControler[0];
 
 
+    public float defaultForceFieldRadius = 9;
 
     public float forceFieldRadius = 9;
     public bool forceFieldActive = false;
@@ -143,7 +144,8 @@ public class GameManager : MonoBehaviour {
     private void updateBuildingEffects()
     {
 
-        int currentlyUnlockedWeaponsCount=0;
+        int currentlyUnlockedWeaponsCount = 1;
+        float newForceFieldRadiusMultiply = 1;
 
         List<Building> remove = new List<Building>();
 
@@ -157,7 +159,10 @@ public class GameManager : MonoBehaviour {
                 continue;
             }
 
-            if (b.gameObject.GetComponent<Building>() != null)
+            if (b.gameObject.GetComponent<BuildingForceField>() != null)
+                newForceFieldRadiusMultiply++;
+
+            if (b.gameObject.GetComponent<BuildingUnlockWeapon>() != null)
                 currentlyUnlockedWeaponsCount++;
 
         }
@@ -182,6 +187,16 @@ public class GameManager : MonoBehaviour {
             {
                 p.SwitchWeapon(0);
             }
+        }
+
+        if (this.forceFieldRadius < this.defaultForceFieldRadius * newForceFieldRadiusMultiply)
+        {
+            this.forceFieldRadius = this.defaultForceFieldRadius * newForceFieldRadiusMultiply;
+
+            BuildingHQ hq = UnityEngine.Object.FindObjectOfType<BuildingHQ>();
+
+            if (hq != null)
+                hq.changeForceFieldRadius();
         }
     }
 

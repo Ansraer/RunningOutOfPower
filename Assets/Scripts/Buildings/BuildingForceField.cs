@@ -15,6 +15,9 @@ public class BuildingForceField : Building {
     {
         GameHUDManager.instance.ShowInfoBox(this, "Force Field Upgrade", "This is an example text.");
     }
+    public override void SwitchState()
+    {
 
+    }
 
 }

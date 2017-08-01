@@ -16,7 +16,7 @@ public class EntityPlayer : EntityLiving {
 
     public float energy;
 
-    public static float maxEnergy = 1000;
+    public float maxEnergy = 1000;
 
     private int currentWeapon;
 
@@ -149,4 +149,13 @@ public class EntityPlayer : EntityLiving {
         }
 
     }
+
+    public override void Dead()
+    {
+
+        this.health = 0;
+        this.gameObject.SetActive(false);
+    }
+
+
 }
