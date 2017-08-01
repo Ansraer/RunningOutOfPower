@@ -14,7 +14,7 @@ public class BuildingMenuItem : MonoBehaviour {
 
 
 
-    public void ButtonPlac()
+    public void ButtonPlace()
     {
         this.building.spawnCursor();
     }
