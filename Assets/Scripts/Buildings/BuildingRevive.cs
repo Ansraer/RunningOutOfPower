@@ -21,10 +21,12 @@ public class BuildingRevive : Building {
 
     public override void SwitchState()
     {
-        EntityPlayer p = UnityEngine.Object.FindObjectOfType<EntityPlayer>();
+        EntityPlayer p = GameManager.instance.deadPlayer;
+
 
         if (p != null)
         {
+
             if (p.health <= 0)
             {
 

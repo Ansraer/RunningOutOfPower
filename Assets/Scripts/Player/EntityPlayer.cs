@@ -154,6 +154,8 @@ public class EntityPlayer : EntityLiving {
     {
 
         this.health = 0;
+        GameManager.instance.deadPlayer = this;
+
         this.gameObject.SetActive(false);
     }
 

@@ -24,7 +24,7 @@ public class MineableTile : MonoBehaviour {
 	void FixedUpdate () {
         if (isTouchingPlayer)
         {
-            GameHUDManager.instance.seenOre = 5;
+            GameHUDManager.instance.seenOre = 40;
         }
         isTouchingPlayer = false;
 

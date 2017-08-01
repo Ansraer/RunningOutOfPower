@@ -17,6 +17,8 @@ public class WorldGenerator : MonoBehaviour {
     public GenObjects[] tiles;
     public GenObjects[] objects;
 
+    public GameObject wall;
+
     public int worldHeight;
     public int worldWidth;
 
@@ -37,6 +39,7 @@ public class WorldGenerator : MonoBehaviour {
         GenWorldOre();
 
         GenWorldObjects();
+        GenWorldWall();
 
 
         InstantiateGround();
@@ -148,6 +151,29 @@ public class WorldGenerator : MonoBehaviour {
 
     }
 
+
+
+
+    void GenWorldWall()
+    {
+       
+            for (int len = 0; len < worldHeight; len++)
+            {
+                worldObjects[len, 0] = -2;
+                worldObjects[len, worldWidth-1] = -2;
+            
+            }
+
+            for (int wid = 0; wid < worldWidth; wid++)
+            {
+
+            worldObjects[0, wid] = -2;
+            worldObjects[worldHeight-1, wid] = -2;
+
+            }
+
+    }
+
     void InstantiateGround()
     {
         for (int len = 0; len < worldHeight; len++)
@@ -172,8 +198,18 @@ public class WorldGenerator : MonoBehaviour {
                 if (worldObjects[len, wid] != -1)
                 {
                     int objectIndex = worldObjects[len, wid];
-                    GameObject tempTile = Instantiate(objects[objectIndex].gameObject, new Vector3(wid, len, 0), Quaternion.identity);
-                    tempTile.transform.parent = world.transform;
+
+                    if (objectIndex == -2)
+                    {
+                        GameObject tempTile = Instantiate(this.wall, new Vector3(wid, len, 0), Quaternion.identity);
+                        tempTile.transform.parent = world.transform;
+                    } else
+                    {
+                        GameObject tempTile = Instantiate(objects[objectIndex].gameObject, new Vector3(wid, len, 0), Quaternion.identity);
+                        tempTile.transform.parent = world.transform;
+                    }
+
+
                 }
             }
         }

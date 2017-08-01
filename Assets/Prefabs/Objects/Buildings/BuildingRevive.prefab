@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d7358c1d48c0d4e985b1ecb7a1a6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 500
   health: 0
   healthRegenPerSecond: 0
   resistances: []
@@ -86,6 +86,7 @@ MonoBehaviour:
   idlePowerUsage: 2
   activePowerUsage: 3
   bootupEnergy: 30
+  reviveCost: 400
 --- !u!212 &212330817498914594
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -13,7 +13,7 @@ public class BuildingHeal : Building {
 
     public override void ShowGUI()
     {
-        GameHUDManager.instance.ShowInfoBox(this, "Heal", "This is an example text.");
+        GameHUDManager.instance.ShowInfoBox(this, "Heal", "This building will heal you if you have the necessary energy.");
     }
 
 

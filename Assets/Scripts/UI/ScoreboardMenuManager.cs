@@ -91,7 +91,7 @@ public class ScoreboardMenuManager : MonoBehaviour {
 
 
 
-                int maxToDisplay = 20;
+                int maxToDisplay = 10;
                 int count = 0;
                 string players = "Player\n\n";
                 string scores = "Score\n\n";

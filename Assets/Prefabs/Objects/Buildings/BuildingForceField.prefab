@@ -78,12 +78,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db53cd3020ff4944c97e31989b61ac1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   health: 0
   healthRegenPerSecond: 0
   resistances: []
   activated: 0
-  idlePowerUsage: 2
+  idlePowerUsage: 10
   activePowerUsage: 3
   bootupEnergy: 30
 --- !u!212 &212330817498914594

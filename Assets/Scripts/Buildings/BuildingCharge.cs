@@ -13,15 +13,19 @@ public class BuildingCharge : Building {
 
     public override void ShowGUI()
     {
-        GameHUDManager.instance.ShowInfoBox(this, "Charge", "This is an example text.");
+        GameHUDManager.instance.ShowInfoBox(this, "Charge", "This will charge up your energy if you rightclick it.");
     }
 
     public override void SwitchState()
     {
+
+
         EntityPlayer p = UnityEngine.Object.FindObjectOfType<EntityPlayer>();
+
 
         if (p != null)
         {
+
             float usedEnergy = p.maxEnergy - p.energy;
 
             if (GameManager.instance.SpendResources(usedEnergy, 0))

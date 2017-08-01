@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1338254193920762}
   energyConsumptionPerShot: 30
-  projectile: {fileID: 114663846680182396, guid: 213047cddb4851441bef952ddef10ef4,
+  projectile: {fileID: 114663846680182396, guid: 009b600c327e5994b8aded6893b97a57,
     type: 2}
   fireSound: {fileID: 8300000, guid: ec5f7fc2be3f48d4db7969737db3e438, type: 3}
   player: {fileID: 0}

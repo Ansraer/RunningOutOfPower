@@ -2313,7 +2313,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4878939822716206, guid: 0b29060b1ea20294fadbbc5de419bc39, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4878939822716206, guid: 0b29060b1ea20294fadbbc5de419bc39, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2617,7 +2617,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3353,7 +3353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1936390372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3518,6 +3518,7 @@ MonoBehaviour:
   - gameObject: {fileID: 1750074912372882, guid: 28c51c47e9c85024fbde828e1a2005fa,
       type: 2}
     probability: 1
+  wall: {fileID: 1553253948545596, guid: 5ef73eb1b74b98c449f4db5d66584745, type: 2}
   worldHeight: 100
   worldWidth: 150
   world: {fileID: 125764578}

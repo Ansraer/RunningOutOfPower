@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour {
     public float startTime = 0;
     public static float gameTime = 0;
 
+    public EntityPlayer deadPlayer { get; internal set; }
+
 
     // Use this for initialization
     void Start () {
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator EnemyWaveManager()
     {
 
-        yield return new WaitForSeconds(UnityEngine.Random.Range(minWaveBreakTime, maxWaveBreakTime));
+        yield return new WaitForSeconds(maxWaveBreakTime*3);
 
 
         if (spawnPoints.Count() < 1)

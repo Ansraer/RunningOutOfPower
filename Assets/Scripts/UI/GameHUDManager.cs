@@ -79,8 +79,8 @@ public class GameHUDManager : MonoBehaviour {
     public void sendNotification(string text)
     {
         notification.text = text;
-        notification.CrossFadeAlpha(1, 2,false);
-        notification.CrossFadeAlpha(0, 2, false);
+        //notification.CrossFadeAlpha(1, 2,false);
+        //notification.CrossFadeAlpha(0, 2, false);
     }
 
     public void ShowInfoBox(Building building, string title, string content)

@@ -83,8 +83,8 @@ MonoBehaviour:
   healthRegenPerSecond: 0
   resistances: []
   activated: 0
-  idlePowerUsage: 2
-  activePowerUsage: 3
+  idlePowerUsage: 5
+  activePowerUsage: 5
   bootupEnergy: 30
 --- !u!212 &212330817498914594
 SpriteRenderer:
@@ -119,7 +119,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 69632f7ed09fc63498cfb1dd9a5c96f6, type: 3}
-  m_Color: {r: 0.19999993, g: 1, b: 0, a: 0.703}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

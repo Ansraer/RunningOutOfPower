@@ -33,6 +33,8 @@ public class PlaceBuilding : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
         Vector3 tempPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         tempPos.z = 0f;
         tempPos.x = (float)Math.Round(tempPos.x);
@@ -42,9 +44,12 @@ public class PlaceBuilding : MonoBehaviour {
         if (this.triggerList.Count <= 0)
         {
             this.buildingSprite.color = this.canBuildColor;
-        } else
+
+        }
+        else
         {
             this.buildingSprite.color = this.blockedColor;
+
         }
 
         if (Input.GetButtonDown("Fire1"))

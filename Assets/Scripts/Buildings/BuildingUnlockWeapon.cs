@@ -13,7 +13,7 @@ public class BuildingUnlockWeapon : Building {
 
     public override void ShowGUI()
     {
-        GameHUDManager.instance.ShowInfoBox(this, "Unlock Weapon", "This is an example text.");
+        GameHUDManager.instance.ShowInfoBox(this, "Unlock Weapon", "Yay, a new weapon!");
     }
 
 

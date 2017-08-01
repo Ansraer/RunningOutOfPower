@@ -13,7 +13,7 @@ public class BuildingForceField : Building {
 
     public override void ShowGUI()
     {
-        GameHUDManager.instance.ShowInfoBox(this, "Force Field Upgrade", "This is an example text.");
+        GameHUDManager.instance.ShowInfoBox(this, "Force Field Upgrade", "This building increases you force field range.");
     }
     public override void SwitchState()
     {

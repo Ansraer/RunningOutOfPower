@@ -17,6 +17,16 @@ public class ProjectileController : MonoBehaviour {
 
     public bool damageBuilding = false;
 
+    public void Awake()
+    {
+        Invoke("Destroy", 4);
+    }
+
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
+    }
+
     // Update is called once per frame
     void Update () {
 		

@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1338254193920762}
-  energyConsumptionPerShot: 20
+  energyConsumptionPerShot: 15
   projectile: {fileID: 114663846680182396, guid: 213047cddb4851441bef952ddef10ef4,
     type: 2}
   fireSound: {fileID: 8300000, guid: 2862ceca03f0cc24aa000d64814e7e32, type: 3}
@@ -120,7 +120,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dba2bf590bcc5c242ad6c052081cb591, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb50a24e043ee4d4d82e95337ed5adff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
